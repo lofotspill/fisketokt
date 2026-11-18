@@ -1,0 +1,583 @@
+<!doctype html>
+<html lang="nn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Fisketokt – øv på nynorsk</title>
+<!-- © Lene Marie Frid 2026 -->
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--gold:#f0b24a;--foam:#eaf3f3;--ok:#8be0b0;--bad:#ff9b85;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;min-height:100vh;font:17px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--foam);background:#2c7a8a;transition:background 1s}
+body[data-l="2"]{background:#1f6378}
+body[data-l="3"]{background:#164a63}
+body[data-l="4"]{background:#0e3350}
+body[data-l="5"]{background:#071f36}
+body[data-l="m"]{background:#123a4d}
+.lives{display:flex;justify-content:center;gap:8px;margin:14px 0 4px}
+.lives svg{display:block;width:58px;height:35px;filter:drop-shadow(0 0 6px rgba(240,178,74,.55))}
+.lives .lost svg{opacity:.5;filter:none}
+.lives .pop{animation:pop .8s}
+@keyframes pop{0%{transform:scale(1)}30%{transform:scale(1.3) rotate(-8deg)}100%{transform:scale(1)}}
+.b.mix{border-color:rgba(255,255,255,.35)}
+.b.hb{background:#0b2233;border-color:#0b2233;color:var(--foam)}
+.b.hb:hover{background:#0e2a40}
+main{position:relative;max-width:560px;margin:0 auto;padding:24px 20px 48px}
+h1{font:700 clamp(2.4rem,9vw,3.4rem)/1.05 Georgia,serif;margin:.4em 0 .3em}
+h2{font:600 1.55rem/1.3 Georgia,serif;margin:.8em 0 1em}
+.top{display:flex;justify-content:space-between;gap:8px;font-size:.9rem;opacity:.85}
+.b{display:flex;justify-content:space-between;align-items:center;gap:12px;width:100%;margin:0 0 10px;padding:14px 16px;font:inherit;color:inherit;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.28);border-radius:10px;cursor:pointer;text-align:left}
+.b:hover:not(:disabled){background:rgba(255,255,255,.18)}
+.b:focus-visible,input:focus-visible,textarea:focus-visible,.lnk:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.go{background:var(--gold);color:#0b2233;border-color:var(--gold);font-weight:600;justify-content:center}
+.go:hover:not(:disabled){background:#f5c46c}
+.lv{font-size:.85rem;opacity:.85;white-space:nowrap;display:inline-flex;align-items:center;gap:8px}
+.dr{display:inline-flex;gap:3px;vertical-align:middle}
+.dr i{width:9px;height:9px;border-radius:50%;background:currentColor;opacity:.3;display:inline-block}
+.dr i.on{opacity:1}
+input,textarea{width:100%;font:inherit;padding:14px;margin-bottom:10px;border-radius:10px;border:1px solid rgba(255,255,255,.4);background:rgba(0,0,0,.25);color:inherit}
+.ok{color:var(--ok)}.bad{color:var(--bad)}
+.b.right{border-color:var(--ok);background:rgba(139,224,176,.22)}
+.b.wrong{border-color:var(--bad);background:rgba(255,155,133,.22)}
+.b:disabled{cursor:default;color:inherit}
+.fb{margin-top:16px;padding:14px 16px;border-radius:10px;background:rgba(0,0,0,.28)}
+.fb p{margin:.2em 0 .8em}
+.lnk{background:none;border:0;color:inherit;opacity:.75;text-decoration:underline;font:inherit;cursor:pointer;padding:8px 0;margin-top:12px}
+.bar{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:2px}
+.bar .lnk{margin:0;padding:6px 0}
+.kg{color:var(--gold);font-weight:600;white-space:nowrap}
+table{width:100%;border-collapse:collapse;margin:0 0 16px}th,td{padding:8px 10px;border:1px solid rgba(255,255,255,.28);text-align:center}th{font-weight:600;background:rgba(0,0,0,.2);font-size:.9rem}td.tg{border:2px dashed var(--gold);color:var(--gold);font-weight:700}
+.unl{font:inherit;font-size:.85rem;color:inherit;background:rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.35);border-radius:8px;padding:4px 8px;cursor:pointer}.unl:disabled{opacity:.45;cursor:default}
+.lvc{display:flex;align-items:center;gap:12px;margin:8px 0}.v{font-size:1.4rem;font-weight:700}
+details{margin:0 0 12px;padding:8px 12px;border-radius:10px;background:rgba(0,0,0,.2)}summary{cursor:pointer;font-weight:600}
+table{font-size:.95rem}th,td{overflow-wrap:anywhere}
+@media (max-width:480px){th,td{padding:6px 4px;font-size:.8rem}}
+.id{opacity:.65;font-size:.85rem;white-space:nowrap}
+.lk{position:absolute;top:18px;right:18px;width:46px;height:46px;border-radius:50%;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.35);display:grid;place-items:center;cursor:pointer;padding:0}
+.lk:hover{background:rgba(255,255,255,.22)}.lk svg{width:28px;height:28px;fill:#fff}
+.lk:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.fb h3{font:600 1.1rem Georgia,serif;margin:1.1em 0 .4em}textarea{resize:vertical}
+.b.done{background:rgba(8,40,68,.42)}
+.mix{background:rgba(4,22,40,.6)}
+.big{font:700 3.5rem/1 Georgia,serif;color:var(--gold);margin:.2em 0 .4em}
+@media (prefers-reduced-motion:reduce){body{transition:none}}
+</style>
+</head>
+<body data-l="1">
+<main id="app"></main>
+<script>
+const A={v:'Verb',s:'Substantiv',m:'Småord',o:'Ordforråd',r:'Rett feilen'},K=Object.keys(A),D=[10,30,60,100,200];
+// [område, nivå 1-5, spørsmål, rette svar, alternativ (null = skriv sjølv), forklaring]
+const Q=[
+['v',1,'Eg ___ ballen kvar dag.',['kastar'],['kastar','kaster','kasta','kastet'],'A-verb: kaste – kastar – kasta – kasta.',['å kaste','kastar','kasta','kasta'],1],
+['v',1,'Dei ___ brev kvar veke.',['skriv'],['skriv','skriver','skrive','skreiv'],'Sterke verb får ingen ending i presens: skriv.',['å skrive','skriv','skreiv','skrive'],1],
+['v',2,'Guten ___ over gjerdet kvar dag.',['hoppar'],['hoppar','hopper','hoppa','hoppet'],'A-verb: hoppe – hoppar – hoppa – hoppa.',['å hoppe','hoppar','hoppa','hoppa'],1],
+['v',3,'I går ___ vi ein film.',['såg'],['såg','så','sett','ser'],'Sjå – ser – såg – sett.',['å sjå','ser','såg','sett'],2],
+['v',3,'I går ___ ho eit langt brev.',['skreiv'],null,'Skrive – skriv – skreiv – skrive. «Skrev» er bokmål.',['å skrive','skriv','skreiv','skrive'],2],
+['v',4,'Dei har ___ mykje vatn.',['drukke'],null,'Drikke – drikk – drakk – drukke.',['å drikke','drikk','drakk','drukke'],3],
+['v',5,'I går ___ ho glad.',['vart','blei'],null,'Nynorsk har både vart og blei: bli – blir – vart/blei – blitt.',['å bli','blir','vart / blei','blitt'],2],
+['s',1,null,['jenta'],['jenta','jenten','jentene','jenter'],'Hokjønn får -a: jenta.',['ei jente','jenta','jenter','jentene'],1],
+['s',1,null,['hestar'],['hestar','hester','hestane','hesten'],'Hankjønn: ein hest – hesten – hestar – hestane.',['ein hest','hesten','hestar','hestane'],2],
+['s',2,null,['gutane'],['gutane','gutene','gutar','guten'],'Hankjønn: gutar – gutane.',['ein gut','guten','gutar','gutane'],3],
+['s',3,null,['bøker'],['bøker','bøkene','bøkar','boka'],'Ei bok – boka – bøker – bøkene.',['ei bok','boka','bøker','bøkene'],2],
+['s',3,null,['fiskane'],null,'Hankjønn: fiskar – fiskane.',['ein fisk','fisken','fiskar','fiskane'],3],
+['s',4,null,['øya'],null,'Hokjønn får -a: øya.',['ei øy','øya','øyar','øyane'],1],
+['s',5,null,['born'],null,'Eit barn – barnet – born – borna.',['eit barn','barnet','born','borna'],2],
+['m',1,'Kva er nynorsk for «hva»?',['kva'],['hva','kva','kvar','kvifor'],'Hv- blir kv- i nynorsk.'],
+['m',1,'Kva er nynorsk for «jeg»?',['eg'],['jeg','eg','ei','ho'],'Jeg blir eg.'],
+['m',2,'Kva er nynorsk for «bare»?',['berre'],['bare','berre','barre','bere'],'Bare blir berre.'],
+['m',2,'Kva er nynorsk for «mye»?',['mykje'],['mye','mykje','myke','mykkje'],'Mye blir mykje.'],
+['m',3,'Kva er nynorsk for «hvordan»?',['korleis'],['hvordan','korleis','kvordan','korles'],'Hvordan blir korleis.'],
+['m',3,'Skriv nynorsk for «noen» (eintal):',['nokon'],null,'Noen blir nokon.'],
+['m',4,'Skriv nynorsk for «hvem»:',['kven'],null,'Hvem blir kven.'],
+['m',5,'Skriv nynorsk for «fortsatt»:',['framleis','enno'],null,'Fortsatt kan bli framleis eller enno.'],
+['o',1,'Kva er nynorsk for «hjem» (i «gå hjem»)?',['heim'],['hjem','heim','heime','hjeim'],'Hjem blir heim.'],
+['o',1,'Kva er nynorsk for «gutt»?',['gut'],['gutt','gut','gute','guten'],'Gutt blir gut.'],
+['o',2,'Kva er nynorsk for «fortelle»?',['fortelje'],['fortelle','fortelje','fortella','forteljer'],'Fortelle blir fortelje.'],
+['o',3,'Kva er nynorsk for «tirsdag»?',['tysdag'],['tirsdag','tysdag','tiisdag','tysdagen'],'Tirsdag blir tysdag.'],
+['o',3,'Skriv nynorsk for «uke»:',['veke'],null,'Uke blir veke.'],
+['o',4,'Skriv nynorsk for «hvorfor»:',['kvifor'],null,'Hvorfor blir kvifor.'],
+['o',5,'Skriv nynorsk for «mens» (som i «mens vi venter»):',['medan'],null,'Mens blir medan.'],
+['r',1,'Kva ord er ikkje nynorsk? «Eg likar ikke fisk.»',['ikke'],['Eg','likar','ikke','fisk'],'Ikke blir ikkje.'],
+['r',1,'Kva ord er ikkje nynorsk? «Vi går hjem etter skulen.»',['hjem'],['går','hjem','etter','skulen'],'Hjem blir heim.'],
+['r',2,'Kva ord er bokmål? «Jenta kastet ballen langt.»',['kastet'],['Jenta','kastet','ballen','langt'],'Kastet blir kasta.'],
+['r',3,'Rett opp ordet «mye»: «Dei har mye fisk.»',['mykje'],null,'Mye blir mykje.'],
+['r',3,'Rett opp verbet «spiser»: «Eg spiser fisk kvar dag.»',['et'],null,'Presens av ete: eg et.'],
+['r',4,'Rett opp verbet «ligger»: «Boka ligger på bordet.»',['ligg'],null,'Liggje – ligg.'],
+['r',5,'Skriv heile setninga på nynorsk: «Jeg vet ikke hva de gjør.»',['eg veit ikkje kva dei gjer'],null,'Eg veit ikkje kva dei gjer.']
+];
+const norm=s=>s.toLowerCase().replace(/[.,!?«»"]/g,'').replace(/\s+/g,' ').trim();
+const dots=n=>`<span class="dr">${[1,2,3,4,5].map(i=>`<i class="${i<=n?'on':''}"></i>`).join('')}</span>`;
+const fish=h=>{const c=h?'#f0b24a':'#8fa3b3';return `<svg viewBox="0 0 80 48" width="80" height="48" role="img" aria-label="${h?'Glad fisk':'Trist fisk'}"><path d="M60 24 L78 8 L78 40 Z" fill="${c}"/><ellipse cx="34" cy="24" rx="30" ry="18" fill="${c}"/><circle cx="20" cy="19" r="3.5" fill="#0b2233"/><path d="${h?'M10 28 Q17 35 24 28':'M10 33 Q17 26 24 33'}" stroke="#0b2233" stroke-width="2.5" fill="none" stroke-linecap="round"/>${h?'':'<path d="M27 22 Q25 27 27 28 Q29 27 27 22Z" fill="#9fd4f5"/>'}</svg>`};
+const LB=['ubunden eintal','bunden eintal','ubunden fleirtal','bunden fleirtal'],VL=['Grunnform (infinitiv)','Presens (notid)','Preteritum (fortid)','Perfektum partisipp'],COST=100;
+const app=document.getElementById('app');
+let st=null;try{st=JSON.parse(localStorage.getItem('fisketokt1'))}catch(e){}
+st=st&&typeof st==='object'?st:{};st.l=st.l||{};st.s=st.s||{};st.w=st.w||{};st.kg=st.kg||0;st.n=st.n||{};st.seen=st.seen||{};K.forEach(a=>st.l[a]=st.l[a]||1);
+const save=()=>{try{localStorage.setItem('fisketokt1',JSON.stringify(st))}catch(e){}};
+if(!st.id){st.id=String(10000+Math.floor(Math.random()*90000));save()}
+let R;
+
+function home(){
+ document.body.dataset.l=1;
+ app.innerHTML=`<button class="lk" id="lk" aria-label="Min fremgang og lærar"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M9.3 9.3a2.7 2.7 0 1 1 4 2.35c-.95.6-1.5 1.05-1.5 2.15v.3" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><circle cx="12" cy="17" r="1.15"/></svg></button><h1>Fisketokt</h1><p>Svar rett og fang fisk. Får du nesten alt rett gjennom ein heil runde, seglar du ut på djupare hav med vanskelegare spørsmål og færre hjelpemiddel. Går det trått, vender du tilbake til grunnare vatn og får meir hjelp. Fisk du har fanga, kan du bruke til å kjøpe hint. Framgangen din blir lagra i nettlesaren.</p><p class="kg">🐟 ${st.kg} kg fisk i alt</p><h2>Kva vil du øve på?</h2><button class="b go" id="nv"><span>⚓ Naustet: Lær og øv før toktet</span></button>`
+ +K.map(a=>`<button class="b" data-a="${a}"><span>${A[a]}</span><span class="lv">${dots(st.l[a])} ${D[st.l[a]-1]} m</span></button>`).join('')
+ +`<button class="b mix" data-a="x"><span>Blanda tokt</span></button><p style="opacity:.55;font-size:.75rem;text-align:center;margin-top:22px">© Lene Marie Frid 2026</p>`;
+ app.querySelectorAll('[data-a]').forEach(b=>b.onclick=()=>start(b.dataset.a));
+ document.getElementById('nv').onclick=naust;
+ document.getElementById('lk').onclick=()=>box();
+}
+function start(a){if(a==='x')return mixRules();R={a,n:st.l[a]>=4?15:10,f:0,ai:0,used:new Set(),wk:new Set(),retry:[],miss:{},res:{},kg:0,open:new Set()};ask()}
+const qk=q=>q[0]+'|'+(q[2]||q[6][0]+q[7])+'|'+q[3][0],wk=q=>q[9]||qk(q);
+function pick(area){
+ const L=st.l[area],rnd=a=>a[Math.floor(Math.random()*a.length)];
+ const base=Q.map((q,i)=>i).filter(i=>Q[i][0]===area&&!R.used.has(i)&&!R.wk.has(wk(Q[i])));
+ let pool=base.filter(i=>!st.seen[qk(Q[i])]);
+ if(!pool.length&&base.length){Q.forEach(q=>{if(q[0]===area)delete st.seen[qk(q)]});pool=base}
+ if(!pool.length)return null;
+ if(R.mix){const lo=Math.max(2,L),hi=Math.min(5,Math.max(L+2,3)),c=pool.filter(i=>Q[i][1]>=lo&&Q[i][1]<=hi);if(c.length)return rnd(c)}
+ const pg=R.f/R.n,T=R.mix?Math.min(5,Math.max(L+1,3)):Math.max(1,Math.min(5,L+(pg<1/3?-1:pg<2/3?0:1))),d=i=>Math.abs(Q[i][1]-T),m=Math.min(...pool.map(d));
+ return rnd(pool.filter(i=>d(i)===m));
+}
+function ask(){
+ let idx,rt=false,k=R.retry.findIndex(r=>r.at<=R.f);
+ if(k<0&&R.f>=R.n&&R.retry.length)k=0;
+ if(k>=0){idx=R.retry.splice(k,1)[0].id;rt=true}
+ else{
+  if(R.f>=R.n)return fin();
+  const first=R.a==='x'?((R.ai%K.length===0&&(R.cyc=shf(K))),R.cyc[R.ai++%K.length]):R.a;
+  idx=pick(first);
+  if(idx==null)for(const a of K){idx=pick(a);if(idx!=null)break}
+  if(idx==null)return fin();
+  R.f++;
+ }
+ R.used.add(idx);R.wk.add(wk(Q[idx]));st.seen[qk(Q[idx])]=1;save();R.cur=idx;R.rt=rt;R.done=false;R.open=new Set();
+ const q=Q[idx],a=q[0],l=st.l[a],pr=q[2]||`Kva er ${LB[q[7]]} av «${q[6][0]}»?`;
+ document.body.dataset.l=R.mix?'m':l;
+ let h=`<div class="top"><span>${A[a]}</span><span>${rt?'Repetisjon':R.f+' av '+R.n}</span><span>Djupn ${D[l-1]} m</span></div><div class="bar"><button class="lnk" id="hh">← Fisketokt</button><span class="kg" id="kg">🐟 ${st.kg} kg</span></div>${R.mix?`<div class="lives" id="lv">${lv(R.lives)}</div>`:''}<h2>${pr}</h2>`;
+ if(q[6])h+='<div id="tb"></div>';
+ if(q[4])h+=(q[8]?[...q[4]]:[...q[4]].sort(()=>Math.random()-.5)).map(o=>`<button class="b" data-o="${o}">${o}</button>`).join('');
+ else h+=`<div id="f"><input id="in" autocomplete="off" autocapitalize="none" spellcheck="false" enterkeyhint="send" aria-label="Svaret ditt"><button class="b go" id="ok" type="button">Svar</button></div>`;
+ app.innerHTML=h+'<div id="fb"></div>';
+ document.getElementById('hh').onclick=home;
+ if(q[6])tb();
+ if(q[4])app.querySelectorAll('[data-o]').forEach(b=>b.onclick=()=>answer(b.dataset.o,b));
+ else{const i=document.getElementById('in');i.focus();const go=()=>answer(i.value);document.getElementById('ok').onclick=go;i.onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();go()}}}
+}
+function tb(){
+ const q=Q[R.cur],f=q[6],t=q[7],c=[1,2,3].filter(i=>i!==t),l=st.l[q[0]],lk=c.slice(c.length-(l<3?0:l===3?1:2));
+ const ce=i=>i===t?'<td class="tg">?</td>':lk.includes(i)&&!R.open.has(i)?`<td><button class="unl" data-c="${i}"${st.kg<COST||R.done?' disabled':''}>🔒 ${COST} kg</button></td>`:`<td>${f[i]}</td>`;
+ document.getElementById('tb').innerHTML='<table>'+(q[0]==='s'?`<tr><th colspan="2">Eintal</th><th colspan="2">Fleirtal</th></tr><tr><th>Ubunden</th><th>Bunden</th><th>Ubunden</th><th>Bunden</th></tr><tr>${ce(0)}${ce(1)}${ce(2)}${ce(3)}</tr>`:VL.map((h,i)=>`<tr><th>${h}</th>${ce(i)}</tr>`).join(''))+'</table>';
+ document.querySelectorAll('.unl').forEach(b=>b.onclick=()=>{if(R.done||st.kg<COST)return;st.kg-=COST;R.open.add(+b.dataset.c);save();document.getElementById('kg').textContent='🐟 '+st.kg+' kg';tb()});
+}
+function answer(v,btn){
+ if(R.done||!v.trim())return;R.done=true;
+ const q=Q[R.cur],a=q[0],good=q[3].map(norm).includes(norm(v)),kg=good?(R.mix?10:st.l[a]*2):0;
+ if(!R.rt&&!R.mix){const r=R.res[a]=R.res[a]||{n:0,c:0};r.n++;r.c+=good?1:0}
+ st.kg+=kg;R.kg+=kg;
+ if(R.mix){if(good)R.ok++;else{R.lives--;document.getElementById('lv').innerHTML=lv(R.lives,1)}}
+ if(!good){R.miss[a]=1}
+ save();
+ app.querySelectorAll('.b[data-o]').forEach(b=>{b.disabled=true;if(q[3].includes(b.dataset.o))b.classList.add('right');else if(b===btn)b.classList.add('wrong')});
+ const f=document.getElementById('f');if(f)f.hidden=true;
+ if(q[6])tb();
+ document.getElementById('kg').textContent='🐟 '+st.kg+' kg';
+ const fb=document.getElementById('fb');fb.className='fb';
+ fb.innerHTML=`<p class="${good?'ok':'bad'} v">${good?'✓ Rett!':'✗ Ikkje heilt'}</p>`
+  +(q[4]?'':`<p>Du skreiv: <b>${v.trim().replace(/</g,'&lt;')}</b></p>`)
+  +(good?'':`<p>Rett svar: <b>${q[3].join(' / ')}</b></p>`)
+  +`<p>${q[5]} <span class="id">(F${q[10]})</span></p><p class="kg">+${kg} kg fisk</p><button class="b go" id="nx">${(R.mix&&R.lives<1)||(R.f>=R.n&&!R.retry.length)?'Sjå resultatet':'Neste'}</button>`;
+ const n=document.getElementById('nx');n.onclick=R.mix&&R.lives<1?endMix:ask;n.focus({preventScroll:true});
+ setTimeout(()=>fb.scrollIntoView({block:'center',behavior:'smooth'}),50);
+}
+function finish(){
+ const ch=[];
+ K.forEach(a=>{const r=R.res[a];if(!r||r.n<3)return;
+  if(r.n-r.c<=Math.floor(r.n/6)&&st.l[a]<5){st.l[a]++;ch.push({a,up:1})}
+  else if(r.c<=r.n/3&&st.l[a]>1){st.l[a]--;ch.push({a,up:0})}});
+ save();document.body.dataset.l=1;
+ const m=Object.keys(R.miss).map(a=>A[a]);
+ app.innerHTML=`<h1>Fangsten er inne</h1><div class="big">${R.kg} kg</div><p class="kg">🐟 ${st.kg} kg fisk i alt</p>`
+ +ch.map(c=>`<div class="lvc">${fish(c.up)}<span>${c.up?'Du seglar ut på djupare hav i ':'Vi går litt grunnare i '}${A[c.a]}.</span></div>`).join('')
+ +`<p>${m.length?'Øv litt meir på: '+m.join(', ')+'.':'Ingen store feil på denne turen. God tur vidare!'}</p>`
+ +K.map(a=>`<div class="b" style="cursor:default"><span>${A[a]}</span><span class="lv">${dots(st.l[a])} ${D[st.l[a]-1]} m</span></div>`).join('')
+ +`<button class="b go" id="again">Vidare ut på djupet i ${A[R.a].toLowerCase()}</button><button class="b hb" id="hm"><span>Tilbake til hamna</span></button>`;
+ const a=R.a;document.getElementById('again').onclick=()=>start(a);document.getElementById('hm').onclick=home;
+}
+/* ---------- Naustet: leksjonar ---------- */
+const V1=['-a (som i «vaska»)','-te/-de (som i «reiste»)'],TN=['Notid','Fortid','Førnotid','Framtid'],KJ=['Hankjønn','Hokjønn','Inkjekjønn'],AR=['ein','ei','eit'];
+const vv=(v,c,w)=>[`«Å ${v}»: sei fortid høgt på dialekten din. Kva endar forma på?`,V1,c,w];
+const tt=(x,c,w)=>[`Kva tid er dette? «${x}»`,TN,c,w];
+const kn=(w,c,y)=>[`Kva seier du: ___ ${w}?`,AR,c,y];
+const dt=(f,c,w)=>[`Kva kjønn har ordet? ${f}`,KJ,c,w];
+const KN=['hankjønn','hokjønn','inkjekjønn'],EN=['-en','-a','-et'];
+const W=[['ein hest',0,'hesten'],['ei bok',1,'boka'],['eit hus',2,'huset'],['ei jente',1,'jenta'],['ein fisk',0,'fisken'],['ei øy',1,'øya'],['eit barn',2,'barnet'],['ein gut',0,'guten'],['ei sol',1,'sola'],['eit skip',2,'skipet'],['ein katt',0,'katten'],['ei kake',1,'kaka'],['eit bord',2,'bordet'],['ein bil',0,'bilen']];
+const ax=w=>`Ein, ei og eit avgjer òg kjønnet: «${w[0].split(' ')[0]}» → ${KN[w[1]]} (ein = hankjønn, ei = hokjønn, eit = inkjekjønn).`;
+const JN=[0,1,2].map(g=>{const a=W.filter(w=>w[1]===g).slice(0,4),o=W.filter(w=>w[1]!==g).filter((_,i)=>i%2===0).slice(0,4);
+ const it=[o[0],a[0],a[1],o[1],a[2],o[2],o[3],a[3]].map(w=>[`Er ${w[0]} ${KN[g]}?`,['Ja','Nei'],w[1]===g?0:1,w[1]===g?`Ja! ${w[0]} er ${KN[g]}. Bunden form: ${w[2]} (${EN[g]}). ${ax(w)}`:`Nei. ${w[0]} er ${KN[w[1]]}, ikkje ${KN[g]}. Bunden form: ${w[2]} (${EN[w[1]]}). ${ax(w)}`]);
+ return {t:`Er det ${KN[g]}?`,d:`Ja eller nei: er ordet ${KN[g]}?`,i:`<p>Du får ei påstand om eit ord. Trykk <b>Ja</b> eller <b>Nei</b>. Hugs testen: sei bunden form. <b>-en</b> er hankjønn, <b>-a</b> er hokjønn og <b>-et</b> er inkjekjønn. Denne runden handlar om <b>${KN[g]}</b>.</p>`,it}});
+const dv=(f,c,w)=>[`Kva slags verb er dette? ${f}`,['A-verb','E-verb','Sterkt verb'],c,w];
+const VB=[['hoppe','a','hoppe – hoppar – hoppa – hoppa'],['kjøpe','e','kjøpe – kjøper – kjøpte – kjøpt'],['kaste','a','kaste – kastar – kasta – kasta'],['lære','e','lære – lærer – lærte – lært'],['fiske','a','fiske – fiskar – fiska – fiska'],['leve','e','leve – lever – levde – levd'],['snakke','a','snakke – snakkar – snakka – snakka'],['reise','e','reise – reiser – reiste – reist'],['lage','a','lage – lagar – laga – laga'],['høyre','e','høyre – høyrer – høyrde – høyrt'],['jobbe','a','jobbe – jobbar – jobba – jobba'],['meine','e','meine – meiner – meinte – meint']];
+const JV=['a','e'].map(g=>{const a=VB.filter(w=>w[1]===g).slice(0,4),o=VB.filter(w=>w[1]!==g).slice(0,4);
+ const it=[o[0],a[0],a[1],o[1],a[2],o[2],o[3],a[3]].map(w=>[`Er «å ${w[0]}» eit ${g}-verb?`,['Ja','Nei'],w[1]===g?0:1,w[1]===g?`Ja! ${w[2]}. Fortida endar på ${g==='a'?'-a':'-te/-de'}. Det er eit svakt verb, for ordet får ei ending.`:`Nei. Å ${w[0]} er eit ${w[1]}-verb: ${w[2]}.`]);
+ return {t:`Er det eit ${g}-verb?`,d:`Ja eller nei: er verbet eit ${g}-verb?`,i:`<p>Du får ei påstand om eit verb. Trykk <b>Ja</b> eller <b>Nei</b>. Sei fortida høgt på dialekten din: endar ho på <b>-a</b>, er det eit <b>a-verb</b>. Får ho <b>-te</b> eller <b>-de</b>, er det eit <b>e-verb</b>. Denne runden handlar om <b>${g}-verb</b>.</p>`,it}});
+const IT=(q,o,a,w)=>[q,o,a,w],OK=['Substantiv','Verb','Adjektiv','Småord'];
+const SV={t:'Sterke verb',d:'Verb som byter vokal i fortid.',i:`<p><b>Sterke verb</b> byter vokal inne i ordet når dei blir bøygde, og dei får ingen fortidsending. Du må lære dei utanåt, men nokre mønster går att: <i>skrive – skreiv</i> (i – ei), <i>drikke – drakk – drukke</i> (i – a – u).</p>
+<table><tr><th>Infinitiv</th><th>Presens</th><th>Preteritum</th><th>Perfektum</th></tr><tr><td>å skrive</td><td>skriv</td><td>skreiv</td><td>skrive</td></tr><tr><td>å drikke</td><td>drikk</td><td>drakk</td><td>drukke</td></tr><tr><td>å sjå</td><td>ser</td><td>såg</td><td>sett</td></tr><tr><td>å ta</td><td>tek</td><td>tok</td><td>teke</td></tr><tr><td>å gå</td><td>går</td><td>gjekk</td><td>gått</td></tr><tr><td>å få</td><td>får</td><td>fekk</td><td>fått</td></tr><tr><td>å vere</td><td>er</td><td>var</td><td>vore</td></tr><tr><td>å ete</td><td>et</td><td>åt</td><td>ete</td></tr></table>
+<p><b>Kvifor heiter dei sterke?</b> Dei klarer å vise fortid aleine, med vokalbyte, utan hjelp av ei ending. <b>Pass på:</b> <i>skrev</i>, <i>så</i> og <i>gikk</i> er bokmål. På nynorsk heiter det <i>skreiv</i>, <i>såg</i> og <i>gjekk</i>.</p>`,
+it:[IT('Kva er preteritum av «å skrive»?',['skreiv','skrive','skrivde','skrev'],0,'Skrive – skriv – skreiv – skrive. «Skrev» er bokmål.'),IT('Kva er preteritum av «å drikke»?',['drikka','drakk','drukke','drikte'],1,'Drikke – drikk – drakk – drukke.'),IT('Kva er preteritum av «å sjå»?',['såg','sjåa','sett','så'],0,'Sjå – ser – såg – sett. «Så» er bokmål.'),IT('Kva er preteritum av «å ta»?',['tok','tatt','tade','taka'],0,'Ta – tek – tok – teke.'),IT('Kva er preteritum av «å gå»?',['gådde','gjekk','gått','gikk'],1,'Gå – går – gjekk – gått. «Gikk» er bokmål.'),IT('Perfektum partisipp av «å drikke»: «Dei har ___ mykje vatn.»',['drakk','drukke','drikka','drikt'],1,'Drikke – drikk – drakk – drukke.'),IT('Perfektum partisipp av «å ete»: «Ho har ___ fisk.»',['åt','ete','etet','ette'],1,'Ete – et – åt – ete.'),IT('Kva er preteritum av «å vere»?',['var','vore','vart','er'],0,'Vere – er – var – vore.')]};
+const TB=(h,r)=>`<table><tr>${h.map(x=>`<th>${x}</th>`).join('')}</tr>${r.map(x=>`<tr>${x.map(y=>`<td>${y}</td>`).join('')}</tr>`).join('')}</table>`;
+const AD=(x,c,w)=>[`Kva form er adjektivet «${x}»?`,['Hankjønn/hokjønn','Inkjekjønn','Fleirtal'],c,w];
+const AW=['Ingen ending: hankjønn eller hokjønn (ein/ei ...).','Endinga -t viser inkjekjønn (eit ...).','Endinga -e viser fleirtal (store ...).'];
+const AJI=(()=>{const y=['vakker','hyggeleg','kald','raud','spennande','tjukk'],n=[['hest','substantiv'],['å hoppe','verb'],['vindauge','substantiv'],['å skrive','verb'],['saman','småord'],['bok','substantiv']],o=[];
+ for(let i=0;i<6;i++){o.push(IT(`Er «${y[i]}» eit adjektiv?`,['Ja','Nei'],0,`Ja! «${y[i]}» skildrar korleis noko er.`));o.push(IT(`Er «${n[i][0]}» eit adjektiv?`,['Ja','Nei'],1,`Nei. «${n[i][0]}» er eit ${n[i][1]}.`))}return o})();
+const GL=[
+{t:'Ordklassar: kva slags ord er dette?',d:'Substantiv, verb, adjektiv og småord.',i:`<p>Alle ord høyrer til ein <b>ordklasse</b>. Ordklassen fortel kva jobb ordet gjer i setninga. Dei tre viktigaste er:</p><ul><li><b>Substantiv</b> er namn på ting, dyr og folk: <i>hest, bok, Værøy</i>. Du kan seie <i>ein</i>, <i>ei</i> eller <i>eit</i> framfor.</li><li><b>Verb</b> fortel kva nokon gjer eller kva som skjer: <i>hoppe, regne</i>. Du kan seie <i>å</i> framfor.</li><li><b>Adjektiv</b> skildrar korleis noko er: <i>stor, kald, hyggeleg</i>. Du kan seie <i>veldig</i> framfor.</li></ul><p>Dei andre orda kallar vi ofte <b>småord</b>: <i>og, på, eg, ikkje</i>.</p>`,
+ it:[['hest',0,'Substantiv: ein hest.'],['å hoppe',1,'Verb: du kan seie «å hoppe».'],['stor',2,'Adjektiv: ein stor hest, veldig stor.'],['og',3,'Småord: «og» bind saman ord.'],['kald',2,'Adjektiv: veldig kald.'],['bok',0,'Substantiv: ei bok.'],['å skrive',1,'Verb: du kan seie «å skrive».'],['hyggeleg',2,'Adjektiv: ein hyggeleg lærar.']].map(([w,c,y])=>IT(`Kva ordklasse er «${w}»?`,OK,c,y))},
+{t:'Infinitiv og tempus',d:'Verbformer og tid: notid, fortid og førnotid.',i:`<p>Verb har fleire former.</p>${TB(['Infinitiv','Presens (notid)','Preteritum (fortid)','Perfektum (førnotid)'],[['å hoppe','hoppar','hoppa','har hoppa']])}<p><b>Infinitiv</b> er forma med <i>å</i> framfor, den du finn først i ordboka. <b>Tempus</b> er tida verbet fortel om: notid (det skjer no), fortid (det skjedde) eller førnotid (<i>har</i> + verbet).</p>`,
+ it:[IT('Kva er infinitiv av «Ho hoppa over gjerdet»?',['å hoppe','hoppar','hoppa','har hoppa'],0,'Infinitiv er «å hoppe».'),IT('Kva er infinitiv av «Vi såg ein film»?',['å sjå','å se','såg','sett'],0,'Infinitiv er «å sjå». «Å se» er bokmål.'),IT('Kva er infinitiv av «Dei skreiv brev»?',['å skrive','skreiv','skriv','å skrev'],0,'Infinitiv er «å skrive».'),IT('Kva er infinitiv av «Ho kjøper fisk»?',['å kjøpe','kjøper','kjøpte','å kjøper'],0,'Infinitiv er «å kjøpe».'),...[['Eg fiskar torsk.',0,'«Fiskar» er presens.'],['Han fiska i går.',1,'«Fiska» er preteritum.'],['Ho har kasta ballen.',2,'«Har kasta» er perfektum.'],['Vi skal reise i morgon.',3,'«Skal reise» fortel om framtida.']].map(([x,c,y])=>IT(`Kva tid er dette? «${x}»`,TN,c,y))]},
+{t:'Eintal, fleirtal og bunden form',d:'Kor mange, og veit vi kva for ein?',i:`<p>Substantiv bøyer seg på to måtar: <b>tal</b> (eintal = éin, fleirtal = fleire) og <b>bunden/ubunden</b> (veit vi kva for ein det er?).</p>${TB(['','Eintal','Fleirtal'],[['Ubunden','ein hest','hestar'],['Bunden','hesten','hestane']])}`,
+ it:[['hesten',1,'Éin hest vi veit kva er: bunden eintal.'],['hestar',2,'Fleire hestar vi ikkje kjenner: ubunden fleirtal.'],['ein hest',0,'Éin hest, ikkje kjend: ubunden eintal.'],['hestane',3,'Fleire hestar vi veit kva er: bunden fleirtal.'],['boka',1,'Éi bok vi veit kva er: bunden eintal.'],['bøker',2,'Fleire bøker: ubunden fleirtal.'],['bøkene',3,'Fleire bøker vi veit kva er: bunden fleirtal.'],['eit hus',0,'Eitt hus, ikkje kjent: ubunden eintal.']].map(([w,c,y])=>IT(`Kva form er «${w}»?`,['Ubunden eintal','Bunden eintal','Ubunden fleirtal','Bunden fleirtal'],c,y))}];
+const AL=[
+{t:'Kva er eit adjektiv?',d:'Ein lesetekst om ord som skildrar.',i:`<h2>Ord som skildrar</h2><p>Eit <b>adjektiv</b> fortel korleis noko er: <i>stor, kald, vakker, hyggeleg</i>. Adjektiv kallar vi òg <i>eigenskapsord</i>.</p><h2>Slik kjenner du att eit adjektiv</h2><p><b>Veldig-testen:</b> Kan du setje <i>veldig</i> framfor ordet? <i>veldig stor, veldig kald</i>. Då er det truleg eit adjektiv.</p><p><b>Substantiv-testen:</b> Kan ordet stå framfor eit substantiv og fortelje meir om det? <i>ein stor hest, ei kald hand</i>.</p><h2>Kvifor bøyer vi adjektiv?</h2><p>Adjektivet må passe med substantivet. Det rettar seg etter <b>kjønn</b> og <b>tal</b>:</p>${TB(['Hankjønn','Hokjønn','Inkjekjønn','Fleirtal'],[['ein stor hest','ei stor bok','eit stort hus','store hestar']])}<p>Adjektivet er nesten alltid likt for hankjønn og hokjønn. Inkjekjønn får <b>-t</b>, og fleirtal får <b>-e</b>. Det lærer du i neste leksjon.</p>`,it:[]},
+{t:'Adjektiv bøyer seg',d:'Kva form passar til ordet?',i:`<p>Adjektiv har berre tre former. Sjå på mønsteret:</p>${TB(['','Hankjønn / hokjønn','Inkjekjønn','Fleirtal'],[['stor','stor','stort','store'],['kald','kald','kaldt','kalde'],['raud','raud','raudt','raude'],['hyggeleg','hyggeleg','hyggeleg','hyggelege']])}<p><b>Pass på:</b> Adjektiv på <i>-eg</i> og <i>-ig</i> får ikkje -t i inkjekjønn (<i>eit hyggeleg hus</i>). <i>Liten</i> er uregelrett: <i>ein liten hest, ei lita bok, eit lite hus, små hus</i>.</p>`,
+ it:[IT('«Eit ___ hus.» (stor)',['stor','stort','store','storar'],1,'Inkjekjønn får -t: eit stort hus.'),IT('«Ei ___ bok.» (ny)',['ny','nytt','nye','nyare'],0,'Hokjønn får grunnforma: ei ny bok.'),IT('«Ein ___ hest.» (vakker)',['vakker','vakkert','vakre','vakra'],0,'Hankjønn får grunnforma: ein vakker hest.'),IT('«Dei ___ hestane.» (stor)',['stor','stort','store','storar'],2,'Fleirtal får -e: dei store hestane.'),IT('«Eit ___ vatn.» (kald)',['kald','kaldt','kalde','kalt'],1,'Inkjekjønn får -t: eit kaldt vatn.'),IT('«Ei ___ jente.» (liten)',['liten','lita','lite','små'],1,'Liten er uregelrett: liten – lita – lite – små.'),IT('«Dei ___ barna.» (liten)',['liten','lita','lite','små'],3,'Fleirtal av liten er små.'),IT('«Eit ___ hus.» (hyggeleg)',['hyggeleg','hyggelegt','hyggelege','hyggeleget'],0,'Adjektiv på -eg får ikkje -t: eit hyggeleg hus.')]},
+{t:'Bøyingsdetektiven',d:'Finn ut kva form adjektivet har.',i:`<p>Du kan sjå på endinga kva form eit adjektiv har: ingen ending er hankjønn eller hokjønn, <b>-t</b> er inkjekjønn, og <b>-e</b> er fleirtal.</p>${TB(['Hankjønn/hokjønn','Inkjekjønn','Fleirtal'],[['stor','stort','store'],['raud','raudt','raude']])}`,
+ it:[AD('stort',1,AW[1]),AD('kalde',2,AW[2]),AD('raud',0,AW[0]),AD('raudt',1,AW[1]),AD('nye',2,AW[2]),AD('kvitt',1,AW[1]),AD('djupe',2,AW[2]),AD('høgt',1,AW[1])]},
+{t:'Er det eit adjektiv?',d:'Ja eller nei: skildrar ordet korleis noko er?',i:`<p>Trykk <b>Ja</b> eller <b>Nei</b>. Hugs testane: Kan du seie <i>veldig</i> framfor ordet? Kan det stå framfor eit substantiv, som i <i>ein stor hest</i>?</p>`,it:AJI},
+{t:'Adjektiv frå bokmål til nynorsk',d:'Endingar og ord som går att.',i:`<p>Mange adjektiv følgjer eit mønster frå bokmål til nynorsk:</p>${TB(['Bokmål','Nynorsk'],[['-lig (hyggelig)','-leg (hyggeleg)'],['-ende (spennende)','-ande (spennande)'],['-som (hjelpsom)','-sam (hjelpsam)'],['høy, lav, dyp','høg, låg, djup'],['tykk, myk, bred','tjukk, mjuk, brei']])}`,
+ it:[['hyggelig',['hyggeleg','hyggelig','hyggeleig','hyggelag'],'Bokmål -lig blir -leg: hyggeleg.'],['farlig',['farleg','farlig','farleig','farlag'],'Bokmål -lig blir -leg: farleg.'],['spennende',['spennande','spennende','spennene','spennand'],'Bokmål -ende blir -ande: spennande.'],['hjelpsom',['hjelpsam','hjelpsom','hjelpsame','hjelpsum'],'Bokmål -som blir -sam: hjelpsam.'],['høy (ikkje låg)',['høg','høy','høge','høyg'],'Høy blir høg.'],['tykk',['tjukk','tykk','tjukt','tukk'],'Tykk blir tjukk.'],['mulig',['mogleg','mulig','muleg','moglig'],'Mulig blir mogleg.'],['ensom',['einsam','ensom','einsom','ensam'],'Ensom blir einsam.']].map(([w,o,y])=>IT(`Kva er nynorsk for «${w}»?`,o,0,y))},
+{t:'Samanlikning',d:'Stor, større, størst.',i:`<p>Adjektiv kan samanliknast: <i>stor – større – størst</i>. Vanlege adjektiv får <b>-are</b> og <b>-ast</b>: <i>vakker – vakrare – vakrast</i>. Nokre er uregelrette: <i>god – betre – best</i>, <i>liten – mindre – minst</i>, <i>ung – yngre – yngst</i>.</p>`,
+ it:[['stor – ___ – størst',['større','storare','stor','størst']],['god – ___ – best',['betre','godare','best','godt']],['liten – ___ – minst',['mindre','litenare','minst','lite']],['vakker – vakrare – ___',['vakrast','vakkerast','vakre','vakrare']],['ung – ___ – yngst',['yngre','ungare','ungast','yngste']],['rask – raskare – ___',['raskast','raskest','raskt','raske']]].map(([q,o])=>IT(`Kva manglar? ${q}`,o,0,`Rett svar: ${o[0]}.`))}];
+let M={
+v:{t:'Verb',ls:[
+{t:'Kva er eit verb?',d:'Ein lesetekst om kva verb er, korleis du finn dei og korleis dei bøyer seg.',i:`<h2>Ord for det som skjer</h2>
+<p>Eit <b>verb</b> fortel kva nokon gjer eller kva som skjer: <i>hoppe, fiske, skrive, regne</i>. Nokre verb fortel korleis noko er: <i>vere, bli</i>. Verb kallar vi òg <i>handlingsord</i>.</p>
+<h2>Slik kjenner du att eit verb</h2>
+<p><b>Å-testen:</b> Kan du setje <i>å</i> framfor ordet? <i>å hoppe, å fiske, å skrive</i>. Då er det eit verb i grunnform (infinitiv).</p>
+<p><b>Tidstesten:</b> Set <i>i går</i> eller <i>i morgon</i> framfor setninga. Endrar ordet form? <i>Eg hoppar no</i> blir <i>I går hoppa eg</i>. Då er det eit verb.</p>
+<h2>Kvifor bøyer vi verb?</h2>
+<p>Verb bøyer seg for å fortelje <b>når</b> noko skjer. Dette kallar vi <b>tempus</b> (tid). Vi brukar fire former:</p>
+<table><tr><th></th><th>hoppe</th><th>kjøpe</th></tr><tr><th>Grunnform (infinitiv)</th><td>å hoppe</td><td>å kjøpe</td></tr><tr><th>Presens (notid)</th><td>hoppar</td><td>kjøper</td></tr><tr><th>Preteritum (fortid)</th><td>hoppa</td><td>kjøpte</td></tr><tr><th>Perfektum partisipp (førnotid)</th><td>hoppa</td><td>kjøpt</td></tr></table>
+<ul>
+<li><b>Grunnform (infinitiv):</b> forma med <i>å</i> framfor. Det er den du finn først i ordboka.</li>
+<li><b>Presens:</b> det skjer no: <i>Eg hoppar</i>, <i>eg kjøper</i>.</li>
+<li><b>Preteritum:</b> det skjedde før: <i>Eg hoppa</i>, <i>eg kjøpte</i>.</li>
+<li><b>Perfektum partisipp (førnotid):</b> blir brukt saman med <i>har</i> eller <i>hadde</i>: <i>Eg har hoppa</i>, <i>eg har kjøpt</i>.</li>
+</ul>
+<h2>Svake og sterke verb</h2>
+<p>Verb bøyer seg på to hovudmåtar. <b>Svake verb</b> held vokalen som han er og får ei <b>ending</b> for å vise fortid: <i>hoppe → hoppa</i>, <i>kjøpe → kjøpte</i>. Dei deler vi i <b>a-verb</b> (fortid på -a) og <b>e-verb</b> (fortid på -te eller -de). <b>Sterke verb</b> byter i staden <b>vokalen</b> inne i ordet: <i>skrive → skreiv</i>, <i>drikke → drakk</i>. Dei får ingen fortidsending.</p>
+<p><b>Kvifor heiter dei sterke og svake?</b> Eit sterkt verb klarer å vise fortid heilt aleine, ved å byte vokal. Eit svakt verb er ikkje «sterkt nok» til det, så det må ha ei ending til hjelp. Du lærer å kjenne dei att i neste leksjon.</p>`,it:[]},
+{t:'Bøyingsdetektiven',d:'Finn ut kva slags verb det er ut frå bøyinga.',i:`<p>Du kan sjå kva slags verb det er på endingane. Les tabellen og bruk han som fasit.</p><table><tr><th></th><th>Grunnform (infinitiv)</th><th>Presens</th><th>Preteritum</th><th>Perfektum</th></tr><tr><th>A-verb (svakt)</th><td>å hoppe</td><td>hoppar</td><td>hoppa</td><td>hoppa</td></tr><tr><th>E-verb (svakt)</th><td>å kjøpe</td><td>kjøper</td><td>kjøpte</td><td>kjøpt</td></tr><tr><th>Sterkt verb</th><td>å skrive</td><td>skriv</td><td>skreiv</td><td>skrive</td></tr></table><p>A-verb og e-verb er <b>svake verb</b>: dei får ei ending i fortid. <b>Sterke verb</b> byter vokal inne i ordet (<i>skriv – skreiv</i>) og får ingen fortidsending.</p>`,
+it:[dv('hoppar – hoppa – hoppa',0,'Presens på -ar og fortid på -a: a-verb (å hoppe).'),dv('kjøper – kjøpte – kjøpt',1,'Presens på -er og fortid på -te: e-verb (å kjøpe).'),dv('skriv – skreiv – skrive',2,'Vokalen byter frå i til ei i fortid: sterkt verb (å skrive).'),dv('lagar – laga – laga',0,'Presens på -ar og fortid på -a: a-verb (å lage).'),dv('lærer – lærte – lært',1,'Presens på -er og fortid på -te: e-verb (å lære).'),dv('drikk – drakk – drukke',2,'Vokalen byter (i – a – u): sterkt verb (å drikke).')]},
+{t:'Fortid på dialekten din',d:'A-verb eller e-verb? Sei det slik du seier det heime.',i:`<p>Nynorsk deler verba i to grupper. Sei verbet i fortid slik du ville sagt det heime på Værøy. Endar det på <b>-a</b> (eg hoppa, eg kasta), er det eit <b>a-verb</b>. Får det <b>-te</b>, <b>-de</b> eller <b>-dde</b> (eg kjøpte, eg lærte, eg levde), er det eit <b>e-verb</b>.</p><table><tr><th></th><th>Grunnform (infinitiv)</th><th>Presens</th><th>Preteritum</th><th>Perfektum</th></tr><tr><th>A-verb (svakt)</th><td>å hoppe</td><td>hoppar</td><td>hoppa</td><td>hoppa</td></tr><tr><th>E-verb (svakt)</th><td>å kjøpe</td><td>kjøper</td><td>kjøpte</td><td>kjøpt</td></tr></table><p>A-verb og e-verb er begge <b>svake verb</b>: dei held vokalen og får ei ending i fortid. Sterke verb byter vokal i staden (<i>skriv – skreiv</i>).</p>`,
+it:[vv('hoppe',0,'Hoppe er eit a-verb: hoppe – hoppar – hoppa – hoppa.'),vv('kjøpe',1,'Kjøpe er eit e-verb: kjøpe – kjøper – kjøpte – kjøpt.'),vv('kaste',0,'Kaste er eit a-verb: kaste – kastar – kasta – kasta.'),vv('lære',1,'Lære er eit e-verb: lære – lærer – lærte – lært.'),vv('snakke',0,'Snakke er eit a-verb: snakke – snakkar – snakka – snakka.'),vv('leve',1,'Leve er eit e-verb: leve – lever – levde – levd.'),vv('lage',0,'Lage er eit a-verb: lage – lagar – laga – laga.'),vv('høyre',1,'Høyre er eit e-verb: høyre – høyrer – høyrde – høyrt.')]},
+...JV,
+{t:'Tidsmaskina',d:'Notid, fortid, førnotid og framtid.',i:`<p><b>Notid</b> (presens): det skjer no – <i>ho kastar</i>.<br><b>Fortid</b> (preteritum): det skjedde – <i>ho kasta</i>.<br><b>Førnotid</b> (perfektum): <i>har</i> + partisipp – <i>ho har kasta</i>.<br><b>Framtid</b>: <i>skal</i> eller <i>vil</i> + grunnform (infinitiv) – <i>ho skal kaste</i>.</p>`,
+it:[tt('Ho kastar ballen.',0,'Kastar er presens, og det skjer no.'),tt('Vi såg ein film i går.',1,'Såg er preteritum, og det skjedde i går.'),tt('Dei har drukke alt vatnet.',2,'Har + drukke er perfektum.'),tt('Eg skal fiske i morgon.',3,'Skal + grunnform (infinitiv: fiske) fortel om framtida.'),tt('Guten hoppa over gjerdet.',1,'Hoppa er preteritum.'),tt('Ho skriv eit brev.',0,'Skriv er presens.'),tt('Eg har kjøpt fisk.',2,'Har + kjøpt er perfektum.'),tt('Han skreiv ein bok i fjor.',1,'Skreiv er preteritum, og i fjor er over.')]}]},
+s:{t:'Substantiv',ls:[
+{t:'Kva er eit substantiv?',d:'Ein lesetekst om kva substantiv er, korleis du finn dei og korleis dei bøyer seg.',i:`<h2>Namn på ting, dyr og folk</h2>
+<p>Eit <b>substantiv</b> er eit ord som er namn på noko: ein person (<i>gut, lærar</i>), eit dyr (<i>hest, torsk</i>), ein ting (<i>bok, båt</i>), ein stad (<i>øy, fjord</i>) eller noko du ikkje kan ta på (<i>glede, håp, vind</i>). Substantiv kallar vi òg <i>namneord</i>.</p>
+<h2>Slik kjenner du att eit substantiv</h2>
+<p><b>Ein-ei-eit-testen:</b> Kan du setje <i>ein</i>, <i>ei</i> eller <i>eit</i> framfor ordet? Då er det eit substantiv: <i>ein fisk, ei bok, eit hus</i>. Det fungerer ikkje med andre typar ord: <i>ein springe</i> og <i>eit raud</i> gir ingen meining, så dei orda er ikkje substantiv.</p>
+<p><b>Fleirtalstesten:</b> Kan du snakke om fleire av det? <i>fiskar, bøker, hus</i>. Då er det truleg eit substantiv.</p>
+<h2>Kvifor bøyer vi substantiv?</h2>
+<p>Substantiv <b>bøyer seg</b>, altså endrar form, for å fortelje to ting: kor mange det er (<b>eintal</b> eller <b>fleirtal</b>), og om lesaren allereie veit kva vi snakkar om (<b>bunden</b>) eller ikkje (<b>ubunden</b>). Høyr forskjellen: <i>Eg såg ein hest</i> (ein hest lesaren ikkje kjenner) mot <i>Eg såg hesten</i> (hesten vi allereie snakkar om).</p>
+<table><tr><th></th><th>Eintal</th><th>Fleirtal</th></tr><tr><th>Ubunden</th><td>ein hest</td><td>hestar</td></tr><tr><th>Bunden</th><td>hesten</td><td>hestane</td></tr></table>
+<ul>
+<li><b>Ubunden eintal:</b> éin ting vi ikkje kjenner enno. Ordet står i grunnforma med <i>ein/ei/eit</i> framfor: <i>ein hest</i>.</li>
+<li><b>Bunden eintal:</b> éin ting vi veit kva for ein er. Ei ending blir hengd på ordet: <i>hest + en = hesten</i>.</li>
+<li><b>Ubunden fleirtal:</b> fleire ting vi ikkje kjenner enno. Fleirtalsendinga kjem på: <i>hest + ar = hestar</i>.</li>
+<li><b>Bunden fleirtal:</b> fleire ting vi veit kva for nokre er. Fleirtalsforma får ei bunden ending til: <i>hest + ane = hestane</i>.</li>
+</ul>
+<p>Endingane er ulike for hankjønn, hokjønn og inkjekjønn. Det ser du i bøyingsdetektiven, og du lærer meir om kjønn seinare i modulen. I ordboka står grunnforma først og så endingane, så du kan sjå korleis eit ord bøyer seg.</p>`,it:[]},
+{t:'Bøyingsdetektiven',d:'Finn kjønnet ut frå korleis ordet bøyer seg.',i:`<p>Kvart substantiv har eit <b>kjønn</b>: hankjønn (<i>ein</i>), hokjønn (<i>ei</i>) eller inkjekjønn (<i>eit</i>). Kjønnet kan du sjå på endingane. Les tabellen, og bruk han som fasit.</p><table><tr><th></th><th>Ub. eintal</th><th>Best. eintal</th><th>Ub. fleirtal</th><th>Best. fleirtal</th></tr><tr><th>Hankjønn</th><td>ein hest</td><td>hesten</td><td>hestar</td><td>hestane</td></tr><tr><th>Hokjønn</th><td>ei bok</td><td>boka</td><td>bøker</td><td>bøkene</td></tr><tr><th>Inkjekjønn</th><td>eit hus</td><td>huset</td><td>hus</td><td>husa</td></tr></table>`,
+it:[dt('kaka – kaker – kakene',1,'Best. eintal på -a og fleirtal på -er/-ene: hokjønn (ei kake).'),dt('katten – kattar – kattane',0,'Endingane -en, -ar og -ane: hankjønn (ein katt).'),dt('bordet – bord – borda',2,'Endingane -et, ingen ending og -a: inkjekjønn (eit bord).'),dt('sola – soler – solene',1,'Best. eintal på -a: hokjønn (ei sol).'),dt('skipet – skip – skipa',2,'Endingane -et, ingen ending og -a: inkjekjønn (eit skip).'),dt('bilen – bilar – bilane',0,'Endingane -en, -ar og -ane: hankjønn (ein bil).')]},
+{t:'Substantiv har kjønn',d:'Korleis finn du ut om ordet er hankjønn, hokjønn eller inkjekjønn?',i:`<p>Kvart substantiv i nynorsk har eit <b>kjønn</b>: <b>hankjønn</b> (<i>ein</i>), <b>hokjønn</b> (<i>ei</i>) eller <b>inkjekjønn</b> (<i>eit</i>). Kjønnet avgjer korleis ordet blir bøygd, så det er lurt å kunne finne det.</p>
+<h2>Slik finn du kjønnet</h2>
+<p><b>1. Sei ordet med ein, ei eller eit.</b> Kva høyrest rett ut på dialekten din? <i>ein hest, ei bok, eit hus</i>.</p>
+<p><b>2. Sei bunden form.</b> Kva endar ordet på? <b>-en</b> er hankjønn (<i>hesten</i>), <b>-a</b> er hokjønn (<i>boka</i>) og <b>-et</b> er inkjekjønn (<i>huset</i>).</p>
+<p><b>3. Sjekk ordboka.</b> Ho oppgir kjønnet, ofte forkorta til <b>m</b> (hankjønn), <b>f</b> (hokjønn) og <b>n</b> (inkjekjønn).</p>
+<p><b>Pass på:</b> Kjønnet har ikkje alltid med om noko er hann eller ho. <i>Ei sol</i> og <i>ei øy</i> er hokjønn, og <i>eit barn</i> er inkjekjønn, sjølv om barnet kan vere både gut og jente.</p>
+<table><tr><th>Kjønn</th><th>Ord</th><th>Bunden form</th></tr><tr><th>Hankjønn</th><td>ein hest</td><td>hesten (-en)</td></tr><tr><th>Hokjønn</th><td>ei bok</td><td>boka (-a)</td></tr><tr><th>Inkjekjønn</th><td>eit hus</td><td>huset (-et)</td></tr></table>`,
+it:[kn('hest',0,'Ein hest – hesten.'),kn('bok',1,'Ei bok – boka.'),kn('hus',2,'Eit hus – huset.'),kn('jente',1,'Ei jente – jenta.'),kn('fisk',0,'Ein fisk – fisken.'),kn('øy',1,'Ei øy – øya.'),kn('barn',2,'Eit barn – barnet.'),kn('gut',0,'Ein gut – guten.')]},
+...JN]}
+};
+M.v.ls.push(SV);
+const ord=(k,n)=>{M[k].ls=n.map(t=>M[k].ls.find(l=>l.t===t)).concat(M[k].ls.filter(l=>!n.includes(l.t)))};
+ord('s',['Kva er eit substantiv?','Substantiv har kjønn','Bøyingsdetektiven']);
+ord('v',['Kva er eit verb?','Fortid på dialekten din','Bøyingsdetektiven','Sterke verb']);
+M={g:{t:'Bli kjent med grammatikken',ls:GL},v:M.v,s:M.s,a:{t:'Adjektiv',ls:AL}};
+/* ---------- Same oppgåvetypar som i Naustet, med stigande vanskegrad ---------- */
+const fx=(a,l,p,ans,o,w,k)=>Q.push([a,l,p,[ans],o,w,null,null,1,k]),YN=['Ja','Nei'],TP=['','presens','preteritum','perfektum partisipp'];
+// Verb: ja/nei a- eller e-verb
+VB.forEach((w,i)=>{const g=i%3===0?(w[1]==='a'?'e':'a'):w[1],ok=g===w[1];fx('v',i<5?1:2,`Er «å ${w[0]}» eit ${g}-verb? Sei fortida på dialekten din.`,ok?'Ja':'Nei',YN,`${ok?'Ja':'Nei'}. Å ${w[0]} er eit ${w[1]}-verb: ${w[2]}.`,'å '+w[0])});
+// Verb: kva tid er dette?
+[[1,'Ho kastar ballen.',0,'Kastar er presens: det skjer no.'],[1,'Vi såg ein film i går.',1,'Såg er preteritum: det skjedde i går.'],[1,'Ho skriv eit brev.',0,'Skriv er presens.'],[1,'Guten hoppa over gjerdet.',1,'Hoppa er preteritum.'],[2,'Han skreiv ein bok i fjor.',1,'Skreiv er preteritum: i fjor er over.'],[2,'Dei har drukke alt vatnet.',2,'Har + drukke er perfektum (førnotid).'],[2,'Eg har kjøpt fisk.',2,'Har + kjøpt er perfektum (førnotid).'],[2,'Eg skal fiske i morgon.',3,'Skal + infinitiv fortel om framtida.'],[3,'Ho har vore på Værøy i tre år.',2,'Har + vore er perfektum (førnotid).'],[3,'Dei skal reise til Bodø.',3,'Skal + infinitiv (reise) fortel om framtida.'],[3,'Ho vil kjøpe ny båt.',3,'Vil + infinitiv (kjøpe) fortel om framtida.'],[4,'Skipet kom til hamna i går.',1,'Kom er preteritum av komme.'],[4,'Eg har lese boka to gonger.',2,'Har + lese er perfektum (førnotid).'],[4,'Torsken beit på kroken.',1,'Beit er preteritum av bite.']].forEach(([l,x,c,y])=>fx('v',l,`Kva tid er dette? «${x}»`,TN[c],TN,y));
+// Verb: bøyingsdetektiv, med færre og færre spor
+const KV=['A-verb','E-verb','Sterkt verb'],KW=['A-verb: presens på -ar og fortid på -a.','E-verb: presens på -er og fortid på -te/-de.','Sterkt verb: vokalen byter i fortid, og det er ingen fortidsending.'];
+[[2,'hoppar – hoppa – hoppa',0],[2,'kjøper – kjøpte – kjøpt',1],[2,'skriv – skreiv – skrive',2],[2,'lagar – laga – laga',0],[2,'lærer – lærte – lært',1],[2,'drikk – drakk – drukke',2],[3,'kasta – kasta',0],[3,'kjøpte – kjøpt',1],[3,'skreiv – skrive',2],[3,'fiska – fiska',0],[3,'lærte – lært',1],[3,'drakk – drukke',2],[4,'kasta',0],[4,'kjøpte',1],[4,'skreiv',2],[4,'laga',0],[4,'levde',1],[4,'såg',2],[4,'snakka',0],[4,'reiste',1],[4,'tok',2],[5,'kastar',0,'kaste'],[5,'kjøper',1,'kjøpe'],[5,'skriv',2,'skrive'],[5,'fiskar',0,'fiske'],[5,'lever',1,'leve'],[5,'drikk',2,'drikke'],[5,'snakkar',0,'snakke'],[5,'reiser',1,'reise'],[5,'tek',2,'ta']].forEach(([l,f,c,v])=>fx('v',l,`Kva slags verb er dette? ${f}`+(l===4?' (fortid)':l===5?` (presens av «å ${v}»)`:''),KV[c],KV,KW[c]));
+// Verb: sterkt eller svakt?
+[['skrive',1,'skrive – skriv – skreiv – skrive'],['kaste',0,'kaste – kastar – kasta – kasta'],['drikke',1,'drikke – drikk – drakk – drukke'],['kjøpe',0,'kjøpe – kjøper – kjøpte – kjøpt'],['sjå',1,'sjå – ser – såg – sett'],['lære',0,'lære – lærer – lærte – lært'],['ta',1,'ta – tek – tok – teke'],['hoppe',0,'hoppe – hoppar – hoppa – hoppa'],['gå',1,'gå – går – gjekk – gått']].forEach(([v,st_,f],i)=>fx('v',i<5?3:4,`Er «å ${v}» eit sterkt verb?`,st_?'Ja':'Nei',YN,st_?`Ja! ${f}. Vokalen byter, og fortida får ingen ending.`:`Nei. Å ${v} er eit svakt verb: ${f}. Fortida får ei ending.`,'å '+v));
+// Verb: skriv forma sjølv (tabellhjelpa forsvinn på djupet)
+[[3,['å kjøpe','kjøper','kjøpte','kjøpt'],2],[3,['å lære','lærer','lærte','lært'],2],[3,['å fiske','fiskar','fiska','fiska'],1],[4,['å leve','lever','levde','levd'],3],[4,['å reise','reiser','reiste','reist'],2],[4,['å ta','tek','tok','teke'],2],[4,['å sjå','ser','såg','sett'],3],[5,['å gå','går','gjekk','gått'],2],[5,['å bu','bur','budde','budd'],2],[5,['å drikke','drikk','drakk','drukke'],2],[5,['å ta','tek','tok','teke'],3]].forEach(([l,f,t])=>Q.push(['v',l,`Skriv ${TP[t]} av «${f[0]}»:`,f[t]==='teke'?['teke','tatt']:[f[t]],null,f.join(' – ')+'.',f,t,0,f[0]]));
+// Substantiv: ein, ei eller eit? og ja/nei om kjønn
+W.forEach((w,i)=>{const n=w[0].split(' ')[1],g=i%2===0?w[1]:(w[1]+1+(i>>1)%2)%3,ok=g===w[1];
+ fx('s',i<5?1:i<10?2:3,`Kva seier du: ___ ${n}?`,AR[w[1]],AR,`${w[0]}: bunden form ${w[2]} (${EN[w[1]]}). ${ax(w)}`,w[0]);
+ fx('s',i<5?2:i<10?3:4,`Er ${w[0]} ${KN[g]}?`,ok?'Ja':'Nei',YN,ok?`Ja! ${w[0]} er ${KN[g]}. Bunden form: ${w[2]} (${EN[g]}). ${ax(w)}`:`Nei. ${w[0]} er ${KN[w[1]]}, ikkje ${KN[g]}. Bunden form: ${w[2]} (${EN[w[1]]}). ${ax(w)}`,w[0])});
+// Substantiv: bøyingsdetektiv, med færre og færre spor
+const KK=['Hankjønn: endingane -en, -ar og -ane.','Hokjønn: endingane -a, -er og -ene.','Inkjekjønn: endingane -et, ingen ending og -a.'];
+[['katten','kattar','kattane',0],['kaka','kaker','kakene',1],['bordet','bord','borda',2],['sola','soler','solene',1],['skipet','skip','skipa',2],['bilen','bilar','bilane',0]].forEach(d=>[3,4,5].forEach(l=>fx('s',l,'Kva kjønn har ordet? '+(l===3?`${d[0]} – ${d[1]} – ${d[2]}`:l===4?`${d[0]} – ${d[1]}`:`Bunden fleirtal: ${d[2]}`),KJ[d[3]],KJ,KK[d[3]],d[0])));
+// Substantiv: skriv forma sjølv
+[[3,['ein båt','båten','båtar','båtane'],3],[3,['ei kake','kaka','kaker','kakene'],2],[4,['ei sol','sola','soler','solene'],2],[4,['eit skip','skipet','skip','skipa'],3],[5,['ei hand','handa','hender','hendene'],2],[5,['ein mann','mannen','menn','mennene'],2],[5,['eit hus','huset','hus','husa'],3],[5,['ei bok','boka','bøker','bøkene'],3]].forEach(([l,f,t])=>Q.push(['s',l,null,[f[t]],null,f.join(' – ')+'.',f,t,0,f[0]]));
+/* ---------- Småord: høgfrekvente kvardagsord etter tema ---------- */
+// [bokmål, nynorsk, tema, nivå]
+const SW=[['hun','ho','p',1],['vann','vatn','m',1],['rød','raud','f',1],['hvit','kvit','f',1],['vei','veg','t',1],['hjemme','heime','h',1],['melk','mjølk','m',1],['grønn','grøn','f',1],['sommer','sommar','n',1],['høst','haust','n',1],['hval','kval','d',1],['frokost','frukost','m',1],
+['mandag','måndag','u',2],['morgen','morgon','u',2],['måned','månad','u',2],['fra','frå','p',2],['nå','no','p',2],['da','då','p',2],['å bo','å bu','h',2],['å kjøre','å køyre','t',2],['å seile','å segle','t',2],['havn','hamn','t',2],['hyggelig','hyggeleg','e',2],['vanskelig','vanskeleg','e',2],
+['noe','noko','p',3],['sammen','saman','p',3],['derfor','difor','p',3],['hver dag','kvar dag','p',3],['kjøtt','kjøt','m',3],['hansker','hanskar','k',3],['bølge','bølgje','n',3],['ørret','aure','d',3],['kjøkken','kjøken','h',3],['følelse','kjensle','e',3],
+['støvler','støvlar','k',4],['sokker','sokkar','k',4],['regnbue','regnboge','n',4],['nøkkel','nykkel','h',4],['gård','gard','h',4],['ferge','ferje','t',4],['kjærlighet','kjærleik','e',4],['å glemme','å gløyme','e',4],['sommerfugl','sommarfugl','d',4],['verdensrommet','verdsrommet','a',4],['måneskinn','måneskin','a',4],['støvsuger','støvsugar','h',4],
+['melkevei','mjølkeveg','a',5],['stjerneskudd','stjerneskot','a',5],['sykkelvei','sykkelveg','t',5],['kjøretøy','køyretøy','t',5],['redsel','redsle','e',5],['sjelden','sjeldan','p',5],['noen ganger','nokre gonger','p',5],['lykkelig','lukkeleg','e',5],['kjedelig','kjedeleg','e',5],['jorden (planeten)','jorda','a',5],['farlig','farleg','e',5],['kjøring','køyring','t',5]];
+const OW=[['å begynne','å byrje','v',1],['å si','å seie','v',1],['å se','å sjå','v',1],['å gjøre','å gjere','v',1],['å være','å vere','v',1],['skole','skule','n',1],['søster','syster','n',1],['øye','auge','n',1],['hånd','hand','n',1],['syk','sjuk','a',1],['uten','utan','p',1],
+['å høre','å høyre','v',2],['å spille','å spele','v',2],['å sitte','å sitje','v',2],['å legge','å leggje','v',2],['å sette','å setje','v',2],['å spørre','å spørje','v',2],['hjerte','hjarte','n',2],['penger','pengar','n',2],['gave','gåve','n',2],['kirke','kyrkje','n',2],['sang','song','n',2],['spennende','spennande','a',2],['siden','sidan','p',2],
+['å svømme','å symje','v',3],['å ligge','å liggje','v',3],['å bygge','å byggje','v',3],['å synge','å syngje','v',3],['å ringe','å ringje','v',3],['å selge','å selje','v',3],['å tegne','å teikne','v',3],['hverdag','kvardag','n',3],['oppgave','oppgåve','n',3],['sykehus','sjukehus','n',3],['alene','åleine','a',3],['utenfor','utanfor','p',3],
+['å hvile','å kvile','v',4],['å lete','å leite','v',4],['å skjønne','å skjøne','v',4],['sykdom','sjukdom','n',4],['øre','øyre','n',4],['skolebok','skulebok','n',4],['fremtid','framtid','n',4],['ordentlig','ordentleg','a',4],['morsom','morosam','a',4],['ensom','einsam','a',4],['hjelpsom','hjelpsam','a',4],['endelig','endeleg','a',4],['innenfor','innanfor','p',4],
+['virkelig','verkeleg','a',5],['egentlig','eigentleg','a',5],['vanligvis','vanlegvis','p',5],['annerledes','annleis','a',5],['fremmed','framand','a',5],['høyde','høgd','n',5],['lengde','lengd','n',5],['bredde','breidd','n',5],['dybde','djupn','n',5],['hverandre','kvarandre','p',5],['ennå','enno','p',5]];
+// Ordforråd etter tema: [bokmål, nynorsk, tema, nivå]
+const OW2=[['vindu','vindauge','H',1],['lærer (person)','lærar','A',1],['spiller (person)','spelar','F',1],['høy (ikkje låg)','høg','D',1],['lav (ikkje høg)','låg','D',1],['dyp','djup','D',1],
+['gulv','golv','H',2],['bryllup','bryllaup','R',2],['vennlig','venleg','P',2],['ærlig','ærleg','P',2],['lønn','løn','A',2],['fisker (person)','fiskar','A',2],['skolegård','skulegard','S',2],['ungdomsskole','ungdomsskule','S',2],['barneskole','barneskule','S',2],['trener (person)','trenar','F',2],['vinner (person)','vinnar','F',2],['uvær','uvêr','V',2],['solskinn','solskin','V',2],['å søke','å søkje','T',2],['strøm','straum','T',2],['sanger (person)','songar','M',2],['musiker','musikar','M',2],['jern','jarn','I',2],['tykk','tjukk','D',2],['myk','mjuk','D',2],['bred','brei','D',2],['vanlig','vanleg','D',2],
+['kjeller','kjellar','H',3],['å hilse','å helse','R',3],['å møtes','å møtast','R',3],['åpen','open','P',3],['tålmodig','tolmodig','P',3],['skikkelig','skikkeleg','P',3],['å tjene','å tene','A',3],['sykepleier','sjukepleiar','A',3],['skoleskyss','skuleskyss','S',3],['skolebibliotek','skulebibliotek','S',3],['taper (person)','tapar','F',3],['deltaker','deltakar','F',3],['fiskestang','fiskestong','F',3],['å skjære','å skjere','F',3],['værmelding','vêrmelding','V',3],['bølger (fleirtal)','bølgjer','V',3],['roboter','robotar','T',3],['nettleser','nettlesar','T',3],['skriver (printer)','skrivar','T',3],['trommeslager','trommeslagar','M',3],['spilleliste','spelleliste','M',3],['sangtekst','songtekst','M',3],['hendelse','hending','I',3],['frihet','fridom','I',3],['tydelig','tydeleg','D',3],['langsom','langsam','D',3],['merkelig','merkeleg','D',3],
+['leilighet','leilegheit','H',4],['bolig','bustad','H',4],['å tilgi','å tilgje','R',4],['å trøste','å trøyste','R',4],['skilt','skild','R',4],['pålitelig','påliteleg','P',4],['selvsikker','sjølvsikker','P',4],['ansatt','tilsett','A',4],['snekker','snikkar','A',4],['elektriker','elektrikar','A',4],['selger (person)','seljar','A',4],['videregående','vidaregåande','S',4],['fremføring','framføring','S',4],['forurensning','forureining','V',4],['sørlig','sørleg','V',4],['brukernavn','brukarnamn','T',4],['søkemotor','søkjemotor','T',4],['låtskriver','låtskrivar','M',4],['oppdagelse','oppdaging','I',4],['oppfinnelse','oppfinning','I',4],['mulig','mogleg','D',4],
+['selvstendig','sjølvstendig','P',5],['mistenksom','mistenksam','P',5],['opptatt','oppteken','P',5],['arbeidsgiver','arbeidsgjevar','A',5],['rørlegger','røyrleggjar','A',5],['sikkerhet','tryggleik','T',5],['brukergrensesnitt','brukargrensesnitt','T',5],['selvstendighet','sjølvstende','I',5],['bosetting','busetnad','I',5],['umulig','umogleg','D',5],['nødvendig','naudsynt','D',5],['høylytt','høglytt','D',5]];
+const shf=a=>[...a].sort(()=>Math.random()-.5);
+// Ordklasse-gjetting for gode, plausible svaralternativ: verb kjenner vi på «å »,
+// adjektiv er lista opp eksplisitt (dei er skrivne av oss, så vi veit kva dei er),
+// resten (substantiv og småord) hamnar i same bøtte, sidan dei sjeldan blandar seg forstyrrande.
+const ADJ=new Set(['rød','hvit','grønn','hyggelig','vanskelig','sjelden','lykkelig','kjedelig','farlig','syk','spennende','alene','ordentlig','morsom','ensom','hjelpsom','endelig','virkelig','egentlig','annerledes','fremmed','høy (ikkje låg)','lav (ikkje høg)','dyp','vennlig','ærlig','tykk','myk','bred','vanlig','åpen','tålmodig','skikkelig','tydelig','langsom','merkelig','pålitelig','selvsikker','sørlig','mulig','selvstendig','mistenksom','opptatt','umulig','nødvendig','høylytt']);
+const pos=w=>w[0].startsWith('å ')?'v':ADJ.has(w[0])?'a':'n';
+// Levenshtein-avstand, brukt til å finne ekte ord som LIKNER svært på det rette
+// svaret (typiske forvekslingar), i staden for berre eit tilfeldig anna ord.
+function lev(a,b){const m=a.length,n=b.length,d=Array.from({length:m+1},(_,i)=>[i,...Array(n).fill(0)]);
+ for(let j=0;j<=n;j++)d[0][j]=j;
+ for(let i=1;i<=m;i++)for(let j=1;j<=n;j++)d[i][j]=a[i-1]===b[j-1]?d[i-1][j-1]:1+Math.min(d[i-1][j],d[i][j-1],d[i-1][j-1]);
+ return d[m][n]}
+const ALLW=[...new Set([...SW,...OW,...OW2].map(w=>w[1]).concat(VB.map(x=>x[0])).concat(VB.flatMap(x=>x[2].split(' – '))).concat(W.flatMap(x=>[x[0],x[2]])))];
+const cln=b=>b.replace(/\s*\([^)]*\)\s*/g,'').trim();
+function typos(n){
+ // Lagar truverdige stavefeil av ORDET SJØLV: dobla/enkel konsonant midt i eller
+ // sist i ordet (ALDRI heilt fyrst, sidan norske ord ikkje startar med dobbel
+ // konsonant), bokstavbyte, og vanlege vokalforvekslingar (å/a, ø/o, æ/e).
+ const out=new Set(),cs=[...n],cons='bcdfghjklmnpqrstvwxz';
+ for(let i=1;i<cs.length;i++){const c=cs[i];
+  if(cons.includes(c)&&cs[i-1]!==' '){out.add(cs.slice(0,i+1).join('')+c+cs.slice(i+1).join(''));
+   if(cs[i+1]===c)out.add(cs.slice(0,i).join('')+cs.slice(i+1).join(''))}}
+ for(let i=1;i<cs.length-1;i++){const a=[...cs];[a[i],a[i+1]]=[a[i+1],a[i]];out.add(a.join(''))}
+ [['å','a'],['a','å'],['ø','o'],['o','ø'],['æ','e'],['e','æ']].forEach(([f,t])=>{const i=n.indexOf(f);if(i>=0)out.add(n.slice(0,i)+t+n.slice(i+1))});
+ out.delete(n);return [...out]}
+function wrongForms(n,p){
+ // Feil bøying av det rette svaret, t.d. deltakar -> deltakarane. Berre for
+ // substantiv, sidan det er der ubunden/bunden og eintal/fleirtal kan blandast.
+ if(p!=='n')return[];
+ return [...new Set(['ar','ane','en','ene','a'].map(suf=>n+suf))]}
+function lookalikes(n,excl,p){
+ const real=ALLW.filter(w=>w.length>2&&w!==n&&!excl.includes(w)),known=new Set(ALLW);
+ const made=[...typos(n),...wrongForms(n,p)].filter(w=>!known.has(w));
+ const cand=[...made,...real].map(w=>[w,lev(w,n)]).filter(([w,d])=>d>=1&&d<=4&&!excl.includes(w)).sort((a,b)=>a[1]-b[1]);
+ const out=[];for(const [w] of cand){if(!out.includes(w))out.push(w);if(out.length===2)break}
+ return out}
+function lex(ar,L){
+ const oth=w=>{const p=pos(w),c=L.filter(x=>x!==w&&x[1]!==w[1]),t=c.filter(x=>pos(x)===p);return shf(t.length?t:c)[0][1]};
+ L.forEach((w,i)=>{const [b,n,th,l]=w,bc=cln(b),why=`${b} blir ${n}.`,p=pos(w);
+  if(l<=3){let ds;
+   if(ar==='o'){ds=lookalikes(n,[bc],p);
+    if(ds.length<2){const same=L.filter(x=>x[1]!==n&&pos(x)===p).map(x=>x[1]);ds=ds.concat(shf(same).filter(x=>!ds.includes(x))).slice(0,2)}}
+   else{const same=L.filter(x=>x[1]!==n&&pos(x)===p).map(x=>x[1]),oth2=L.filter(x=>pos(x)!==p).map(x=>x[1]);ds=shf(same).concat(shf(oth2)).slice(0,2)}
+   Q.push([ar,l,`Kva er nynorsk for «${b}»?`,[n],shf([n,bc,...ds]),why,null,null,0,b])}
+  else Q.push([ar,l,`Skriv nynorsk for «${b}»:`,[n],null,why,null,null,0,b]);
+  if(l<=3&&i%2===0){const t=(i/2|0)%2===0,x=t?n:oth(w);fx(ar,l+1,`Er «${x}» nynorsk for «${b}»?`,t?'Ja':'Nei',YN,t?`Ja! ${why}`:`Nei. ${b} blir ${n}, ikkje ${x}.`,b)}});
+ [2,3].forEach(l=>{const ws=L.filter(w=>w[3]===l);for(let k=0;k+3<ws.length;k+=4){const g=ws.slice(k,k+4);Q.push([ar,l,'Kva ord er ikkje nynorsk?',[cln(g[0][0])],shf([cln(g[0][0]),g[1][1],g[2][1],g[3][1]]),`«${cln(g[0][0])}» er bokmål. På nynorsk heiter det ${g[0][1]}.`,null,null,0,g[0][0]])}})}
+lex('m',SW);lex('o',OW.concat(OW2));
+// Rett feilen: [nivå, setning med eitt bokmålsord, bokmålsordet, nynorsk]
+[[1,'Hun kjem i morgon.','Hun','Ho'],[1,'Eg drikk kaldt vann.','vann','vatn'],[1,'Dei har ei rød jakke.','rød','raud'],[1,'Eg såg ein hvit hest.','hvit','kvit'],[1,'Ho drikk melk til frukost.','melk','mjølk'],[1,'Eg har ikkje mye tid.','mye','mykje'],[1,'Hva heiter du?','Hva','Kva'],
+[2,'Vi møtest på mandag.','mandag','måndag'],[2,'Eg står tidleg opp om morgen.','morgen','morgon'],[2,'Ho har vore syk i ei veke.','syk','sjuk'],[2,'Eg skal på skole i dag.','skole','skule'],[2,'Dei kjem fra Bodø.','fra','frå'],[2,'Eg vil bare sove.','bare','berre'],[2,'Vi bor i eit lite hus.','bor','bur'],[2,'Han sier at han er trøytt.','sier','seier'],[2,'Ho har ei eldre søster.','søster','syster'],
+[3,'Eg såg ikkje noe.','noe','noko'],[3,'Vi går sammen til skulen.','sammen','saman'],[3,'Ho kastet ballen langt.','kastet','kasta'],[3,'Guten hoppet over gjerdet.','hoppet','hoppa'],[3,'Eg har lest boka to gonger.','lest','lese'],[3,'Kjøkkenet er stort.','Kjøkkenet','Kjøkenet'],[3,'Ho har mange penger.','penger','pengar'],[3,'Eg fekk ei gave av bestemor.','gave','gåve'],[3,'Boka ligger på bordet.','ligger','ligg'],[3,'Dei spiser middag klokka fem.','spiser','et'],
+[4,'Guten spilte fotball i går.','spilte','spelte'],[4,'Ho satt på stolen.','satt','sat'],[4,'Dei skal bygge ei hytte.','bygge','byggje'],[4,'Eg ringte til bestemor.','ringte','ringde'],[4,'Det var ein spennende film.','spennende','spennande'],[4,'Eg skal svømme i sjøen.','svømme','symje'],[4,'Sykehuset ligg nær sjøen.','Sykehuset','Sjukehuset'],[4,'Ho er veldig hjelpsom.','hjelpsom','hjelpsam'],[4,'Vi har ein ordentlig plan.','ordentlig','ordentleg'],[4,'Han hvilte litt.','hvilte','kvilte'],
+[5,'Det var virkelig kaldt.','virkelig','verkeleg'],[5,'Ho jobbar egentlig i Bodø.','egentlig','eigentleg'],[5,'Eg står vanligvis opp klokka sju.','vanligvis','vanlegvis'],[5,'Dei er så annerledes.','annerledes','annleis'],[5,'Høyden på fjellet er 800 meter.','Høyden','Høgda'],[5,'Vi er venner, og vi hjelper hverandre.','hverandre','kvarandre'],[5,'Eg har ikkje lese boka ennå.','ennå','enno'],[5,'Eg kjenner meg ensom.','ensom','einsam'],[5,'Du kan ikkje gå utenfor.','utenfor','utanfor']
+].forEach(([l,sn,b,n])=>{const w=sn.replace(/[.,!?]/g,'').split(' '),why=`«${b}» er bokmål. På nynorsk heiter det ${n}.`;
+ if(l<=3)Q.push(['r',l,`Kva ord er ikkje nynorsk? «${sn}»`,[b],w,why,null,null,1,'r:'+sn]);
+ else Q.push(['r',l,`Rett opp ordet «${b}»: «${sn}»`,[n],null,why,null,null,0,'r:'+sn])});
+// Rett feilen, runde 2: ord henta frå Ordforråd, Småord og Adjektiv-leksjonen
+const rf=(l,sn,b,n)=>{const w=sn.replace(/[.,!?]/g,'').split(' '),why=`«${b}» er bokmål. På nynorsk heiter det ${n}.`;
+ if(l<=3)Q.push(['r',l,`Kva ord er ikkje nynorsk? «${sn}»`,[b],w,why,null,null,1,'r:'+sn]);
+ else Q.push(['r',l,`Rett opp ordet «${b}»: «${sn}»`,[n],null,why,null,null,0,'r:'+sn])};
+[[1,'Bilen er grønn.','grønn','grøn'],[1,'Vegen heim var lang, sa dei om veien.','veien','vegen'],
+[1,'Vi er hjemme i kveld.','hjemme','heime'],[1,'Eg likar sommer best.','sommer','sommar'],[1,'Vi likar høst godt.','høst','haust'],[1,'Eg et frokost klokka åtte.','frokost','frukost'],[1,'Vi såg ein hval i sjøen.','hval','kval'],[1,'Ho har eit blått øye.','øye','auge'],
+[2,'Eg kan høre bølgjene frå huset.','høre','høyre'],[2,'Dei skal spille fotball i kveld.','spille','spele'],[2,'Vi går til kirke på sundag.','kirke','kyrkje'],[2,'Ho har budd her siden 2010.','siden','sidan'],[2,'Læraren er veldig vennlig.','vennlig','venleg'],[2,'Ver ærlig med meg.','ærlig','ærleg'],[2,'Det var uvær i natt.','uvær','uvêr'],[2,'Vi hadde solskinn heile dagen.','solskinn','solskin'],
+[3,'Ho vil synge i kveld.','synge','syngje'],[3,'Vi skal selge huset.','selge','selje'],[3,'Han kan tegne godt.','tegne','teikne'],[3,'Dette er ein vanleg hverdag.','hverdag','kvardag'],[3,'Gjer denne oppgave no.','oppgave','oppgåve'],[3,'Eg er alene heime.','alene','åleine'],[3,'Hjerte hennar banka fort.','Hjerte','Hjarte'],[3,'Difor kom eg seint, sa han derfor.','derfor','difor'],
+[4,'Ho har ein sjeldan sykdom.','sykdom','sjukdom'],[4,'Guten har vondt i øre.','øre','øyre'],[4,'Skolebok er dyr i år.','Skolebok','Skulebok'],[4,'Ho tenkjer mykje på fremtid.','fremtid','framtid'],[4,'Han er veldig morsom.','morsom','morosam'],[4,'Ballen var innenfor streken.','innenfor','innanfor'],[4,'Det er farlig å symje åleine.','farlig','farleg'],[4,'Det er ikkje mulig i dag.','mulig','mogleg'],
+[5,'Ho er veldig selvstendig.','selvstendig','sjølvstendig'],[5,'Læraren er opptatt i dag.','opptatt','oppteken'],[5,'Vi tenkjer på sikkerhet.','sikkerhet','tryggleik'],[5,'Det er ikkje nødvendig.','nødvendig','naudsynt'],[5,'Det er umulig å vinne.','umulig','umogleg'],[5,'Han fisket heile dagen.','fisket','fiska'],[5,'Dei snakket lenge saman.','snakket','snakka'],[5,'Ho laget middag i går.','laget','laga']
+].forEach(([l,sn,b,n])=>rf(l,sn,b,n));
+// Rett feilen, heile setningar med fleire feil (henta frå fleire område samstundes)
+[['Hun kastet ballen langt i går.','Ho kasta ballen langt i går.','hun → ho, kastet → kasta'],
+['Jeg vet ikke hva de gjør nå.','Eg veit ikkje kva dei gjer no.','jeg → eg, vet → veit, nå → no'],
+['Vi bodde sammen i et lite hus.','Vi budde saman i eit lite hus.','bodde → budde, sammen → saman'],
+['Hun sa at hun var veldig sulten.','Ho sa at ho var veldig svolten.','hun → ho, sulten → svolten'],
+['De spiste frokost sammen.','Dei åt frukost saman.','de → dei, spiste → åt, frokost → frukost, sammen → saman'],
+['Han er ikke hjemme nå, men han kommer snart.','Han er ikkje heime no, men han kjem snart.','ikke → ikkje, hjemme → heime, nå → no, kommer → kjem'],
+['Jenta har mye å gjøre før hun reiser.','Jenta har mykje å gjere før ho reiser.','mye → mykje, å gjøre → å gjere, hun → ho'],
+['Vi vil gjerne hjelpe deg med oppgaven din.','Vi vil gjerne hjelpe deg med oppgåva di.','oppgaven → oppgåva, din → di']
+].forEach(([sn,ans,d],i)=>Q.push(['r',5,`Skriv heile setninga rett: «${sn}»`,[ans],null,`Retta ord: ${d}.`,null,null,0,'r5:'+sn]));
+/* ---------- Ordforråd: adjektiv og pronomen ---------- */
+const AF=[['stor','stort','store'],['ny','nytt','nye'],['kald','kaldt','kalde'],['raud','raudt','raude'],['vakker','vakkert','vakre'],['sterk','sterkt','sterke'],['grøn','grønt','grøne'],['tjukk','tjukt','tjukke'],['mjuk','mjukt','mjuke'],['djup','djupt','djupe'],['høg','høgt','høge'],['god','godt','gode'],['hyggeleg','hyggeleg','hyggelege'],['vanskeleg','vanskeleg','vanskelege']];
+const CX=[[['Ein','hest'],['Ei','bok']],[['Eit','hus'],['Eit','vatn']],[['Dei','hestane'],['Dei','husa']]],KJ3=['Hankjønn/hokjønn','Inkjekjønn','Fleirtal'];
+AF.forEach((F,i)=>{const [g,t,e]=F;[i%3,(i+1)%3].forEach((c,j)=>{const [a,n]=CX[c][i%2],sn=c===2?`Dei ___ ${n}.`:`${a} ___ ${n}.`,ans=F[c],
+  why=`${ans}. ${['Hankjønn og hokjønn får grunnforma.',t===g?'Adjektiv på -eg får ikkje -t i inkjekjønn.':'Inkjekjønn får -t.','Fleirtal får -e.'][c]}`;
+  if(j===0)Q.push(['o',[1,2,3][c]+(i>=7&&c<2?1:0),`Kva passar? «${sn}» (${g})`,[ans],[...new Set([g,t,e,g+'et'])],why,null,null,0,'adj:'+g+c]);
+  else Q.push(['o',i<7?4:5,`Skriv rett form: «${sn}» (${g})`,[ans],null,why,null,null,0,'adj:'+g+c])})});
+[['Ei ___ jente.','lita',3],['Eit ___ hus.','lite',3],['Ein ___ hest.','liten',3],['Dei ___ barna.','små',4]].forEach(([q,a,l])=>Q.push(['o',l,`Kva passar? «${q}» (liten)`,[a],['liten','lita','lite','små'],'Liten er uregelrett: liten – lita – lite – små.',null,null,1,'adj:liten'+a]));
+{const y=['vakker','hyggeleg','kald','raud','spennande','tjukk','ordentleg','langsam'],n=[['hest','substantiv'],['å hoppe','verb'],['vindauge','substantiv'],['å skrive','verb'],['saman','småord'],['bok','substantiv'],['å kjøpe','verb'],['fisk','substantiv']];
+ y.forEach((w,i)=>{fx('o',2+(i>>2),`Er «${w}» eit adjektiv?`,'Ja',YN,`Ja! «${w}» skildrar korleis noko er.`,'adjord:'+w);fx('o',3+(i>>2),`Er «${n[i][0]}» eit adjektiv?`,'Nei',YN,`Nei. «${n[i][0]}» er eit ${n[i][1]}.`,'adjord:'+n[i][0])})}
+[['stor','større','størst',3],['god','betre','best',3],['liten','mindre','minst',3],['ung','yngre','yngst',3],['gammal','eldre','eldst',3],['vakker','vakrare','vakrast',4],['rask','raskare','raskast',4],['lang','lengre','lengst',4],['høg','høgare','høgast',4]].forEach(([x,c,u,l],i)=>{
+ Q.push(['o',l,`Kva manglar? ${x} – ___ – ${u}`,[c],shf([c,c===x+'are'?x+'ere':x+'are',u,x]),`${x} – ${c} – ${u}.`,null,null,0,'samanl:'+x]);
+ if(i%3!==2)Q.push(['o',5,`Skriv superlativ: ${x} – ${c} – ___`,[u],null,`${x} – ${c} – ${u}.`,null,null,0,'samanl:'+x+'s'])});
+[['stort',1],['kalde',2],['raud',0],['raudt',1],['nye',2],['kvitt',1],['djupe',2],['høgt',1],['grøn',0],['sterke',2],['nytt',1],['god',0]].forEach(([x,c],i)=>fx('o',2+(i>>2),`Kva form er adjektivet «${x}»?`,KJ3[c],KJ3,AW[c],'adjform:'+x));
+// Eigedomsord: min/mi/mitt/mine må passe med substantivet
+const PF={min:['min','mi','mitt','mine'],din:['din','di','ditt','dine'],vår:['vår','vår','vårt','våre'],sin:['sin','si','sitt','sine']},PN=[['hesten',0],['boka',1],['huset',2],['bøkene',3],['guten',0],['jenta',1],['barnet',2],['hestane',3],['bilen',0],['øya',1],['skipet',2],['kattane',3]];
+PN.forEach(([n,g],i)=>{const f=i%2?'din':'min',ans=PF[f][g];Q.push(['o',g<2?2:3,`Kva passar? «${n} ___» (${f==='min'?'eg':'du'})`,[ans],PF[f],`${n} ${ans}: ${['hankjønn','hokjønn','inkjekjønn','fleirtal'][g]} får «${ans}».`,null,null,1,'eig:'+n+f]);
+ if(i<8)Q.push(['o',4,`Skriv rett form av «vår» for «vi»: «${n} ___»`,[PF.vår[g]],null,`${n} ${PF.vår[g]}: vår – vår – vårt – våre.`,null,null,0,'eig:'+n+'v'])});
+[['Han tok boka ___ med seg.','si'],['Ho tok bilen ___ til jobben.','sin'],['Dei vaska huset ___.','sitt'],['Han vaska hestane ___ kvar dag.','sine'],['Ho las bøkene ___.','sine']].forEach(([q,a])=>Q.push(['o',5,`Skriv rett form: «${q}» (sin/si/sitt/sine)`,[a],null,'Når eigaren er den same som subjektet, brukar vi sin/si/sitt/sine.',null,null,0,'eig:'+q]));
+lex('o',[['hennes','hennar','q',3],['deres, om noko høyrer til «dei»','deira','q',4],['deres, om noko høyrer til «dere»','dykkar','q',5],['dere, som i «Kjem dere?»','de','q',5],['de, som i «De kjem i dag»','dei','q',1],['meg selv','meg sjølv','q',2],['deg selv','deg sjølv','q',3],['seg selv','seg sjølv','q',3]]);
+const hs=t=>{let x=2166136261;for(const c of t){x^=c.charCodeAt(0);x=Math.imul(x,16777619)}return (x>>>0)%90000+10000};
+{const u=new Set();Q.forEach(q=>{let n=hs(qk(q));while(u.has(n))n++;u.add(n);q[10]=n})}
+const dk=(k,j)=>k+'-'+M[k].ls[j].t;
+let N;
+function naust(){
+ document.body.dataset.l=1;
+ app.innerHTML=`<button class="lnk" id="bk">← Fisketokt</button><h1>Naustet</h1><p>Her gjer du deg klar før toktet: les regelen, prøv deg fram og sjå korleis orda bøyer seg. I Naustet fangar du ingen fisk, men du lærer det du treng for å fange meir på toktet.</p>`
+ +Object.keys(M).map((k,n)=>{const t=M[k].ls.length,d=M[k].ls.filter((_,j)=>st.n[dk(k,j)]).length;return `<button class="b${d===t?' done':''}" data-k="${k}"><span>Modul ${n+1} · ${M[k].t}</span><span class="lv">${dots(Math.round(d/t*5))} ${d} av ${t}</span></button>`}).join('');
+ document.getElementById('bk').onclick=home;
+ app.querySelectorAll('[data-k]').forEach(b=>b.onclick=()=>mod(b.dataset.k));
+}
+function mod(k){
+ app.innerHTML=`<button class="lnk" id="bk">← Naustet</button><h1>${M[k].t}</h1>`+M[k].ls.map((l,j)=>`<button class="b${st.n[dk(k,j)]?' done':''}" data-j="${j}"><span><b>${st.n[dk(k,j)]?'✓ ':''}${l.t}</b><br><small>${l.d}</small></span></button>`).join('');
+ document.getElementById('bk').onclick=naust;
+ app.querySelectorAll('[data-j]').forEach(b=>b.onclick=()=>lesson(k,+b.dataset.j));
+}
+function lesson(k,j){
+ N={k,j,i:0,c:0,d:0};const l=M[k].ls[j];
+ if(!l.it.length){st.n[dk(k,j)]=1;save()}
+ app.innerHTML=`<button class="lnk" id="bk">← ${M[k].t}</button><h1>${l.t}</h1>${l.i}${l.it.length?'<button class="b go" id="sb">Start</button>':''}`;
+ document.getElementById('bk').onclick=()=>mod(k);const sb=document.getElementById('sb');if(sb)sb.onclick=nq;
+}
+function nq(){
+ const l=M[N.k].ls[N.j];if(N.i>=l.it.length)return nend();
+ const it=l.it[N.i];N.d=0;
+ app.innerHTML=`<div class="top"><span>${l.t}</span><span>${N.i+1} av ${l.it.length}</span></div><div class="bar"><button class="lnk" id="bk">← ${M[N.k].t}</button></div><details><summary>Vis regelen</summary>${l.i}</details><h2>${it[0]}</h2>`+it[1].map((o,n)=>`<button class="b" data-n="${n}">${o}</button>`).join('')+'<div id="fb"></div>';
+ document.getElementById('bk').onclick=()=>mod(N.k);
+ app.querySelectorAll('[data-n]').forEach(b=>b.onclick=()=>{
+  if(N.d)return;N.d=1;const n=+b.dataset.n,good=n===it[2];N.c+=good?1:0;
+  app.querySelectorAll('[data-n]').forEach(x=>{x.disabled=true;if(+x.dataset.n===it[2])x.classList.add('right');else if(x===b)x.classList.add('wrong')});
+  const fb=document.getElementById('fb');fb.className='fb';
+  fb.innerHTML=`<p class="${good?'ok':'bad'} v">${good?'✓ Rett!':'✗ Ikkje heilt'}</p>${good?'':`<p>Rett svar: <b>${it[1][it[2]]}</b></p>`}<p>${it[3]} <span class="id">(N${hs(N.k+'|'+l.t+'|'+it[0])})</span></p><button class="b go" id="nx">${N.i+1>=l.it.length?'Sjå resultatet':'Neste'}</button>`;
+  const nx=document.getElementById('nx');nx.onclick=()=>{N.i++;nq()};nx.focus({preventScroll:true});
+  setTimeout(()=>fb.scrollIntoView({block:'center',behavior:'smooth'}),50);
+ });
+}
+function nend(){
+ const n=M[N.k].ls[N.j].it.length;
+ if(N.c>=n-1){st.n[dk(N.k,N.j)]=1;save()}
+ app.innerHTML=`<h1>Ferdig!</h1><div class="big">${N.c} av ${n}</div><p>${N.c>=n-1?'Flott! Du er klar for toktet. Leksjonen er merkt som ferdig ✓':'Prøv ein gong til, så sit det snart.'}</p><button class="b go" id="ag">Prøv att</button><button class="lnk" id="bm">Tilbake til modulen</button>`;
+ document.getElementById('ag').onclick=()=>lesson(N.k,N.j);document.getElementById('bm').onclick=()=>mod(N.k);
+}
+/* ---------- Blanda tokt: eiga runde med fem sjansar ---------- */
+const fin=()=>R.mix?endMix():finish();
+const lv=(n,pop)=>[0,1,2,3,4].map(i=>`<span class="${i<n?'':'lost'}${pop&&i===n?' pop':''}">${fish(i<n)}</span>`).join('');
+function mixRules(){
+ document.body.dataset.l='m';
+ app.innerHTML=`<button class="lnk" id="bk">← Fisketokt</button><h1>Blanda tokt</h1><p><b>Dette er ein vanskelegare modus, fordi alt er blanda.</b> Difor får du meir fisk: <b>10 kg for kvart rette svar</b>, like mykje som på det djupaste havet. Slik fungerer det:</p>
+<ul><li><b>20 spørsmål:</b> fire frå kvart område (verb, substantiv, småord, ordforråd og rett feilen), i tilfeldig rekkjefølgje.</li>
+<li><b>Litt vanskelegare spørsmål:</b> du får sjeldan dei aller enklaste, og spørsmål kjem ikkje att.</li>
+<li><b>Fem liv:</b> dei er viste som fem gule fiskar. Svarar du feil, <b>mistar du eitt liv</b>, og den høgre gule fisken blir grå. Då har du eitt liv mindre igjen.</li>
+<li>Har du mist alle liva, er runden slutt. Då kan du prøve på nytt eller gå tilbake til hamna.</li>
+<li>Blanda tokt endrar ikkje nivåa dine i dei andre områda.</li></ul>
+<div class="lives">${lv(5)}</div><button class="b go" id="sm">Start toktet</button>`;
+ document.getElementById('bk').onclick=home;document.getElementById('sm').onclick=startMix;
+}
+function startMix(){R={a:'x',mix:1,n:20,f:0,ai:0,ok:0,lives:5,used:new Set(),wk:new Set(),retry:[],miss:{},res:{},kg:0,open:new Set()};ask()}
+function endMix(){
+ document.body.dataset.l='m';const dead=R.lives<1;
+ app.innerHTML=`<h1>${dead?'Du har mist alle liva':'Fangsten er inne'}</h1><div class="lives">${lv(R.lives)}</div><div class="big" style="text-align:center">${R.kg} kg</div><p style="text-align:center">${R.ok} rette av ${R.f} spørsmål. <span class="kg">🐟 ${st.kg} kg fisk i alt</span></p><button class="b mix" id="ag"><span>${dead?'Prøv på nytt':'Ny runde'}</span></button><button class="b mix" id="hm"><span>Tilbake til hamna</span></button>`;
+ document.getElementById('ag').onclick=mixRules;document.getElementById('hm').onclick=home;
+}
+/* ---------- Fremgangskode og lærarfelt ---------- */
+const hx=t=>{let a=2166136261,b=5381;for(const c of t){a^=c.charCodeAt(0);a=Math.imul(a,16777619);b=Math.imul(b,33)^c.charCodeAt(0)}return (a>>>0).toString(36)+(b>>>0).toString(36)};
+const CH='ut4gneglmahm',B36=n=>Math.max(0,Math.floor(n)).toString(36).toUpperCase(),ck=t=>(hs(t+'fisketokt')%1296).toString(36).toUpperCase().padStart(2,'0'),lh=t=>(hs(t)%1296).toString(36).toUpperCase().padStart(2,'0');
+const lessonList=()=>{const r=[];for(const k in M)M[k].ls.forEach((l,j)=>r.push(dk(k,j)));return r};
+function mkCode(){const p=['FK1',st.id,K.map(a=>st.l[a]).join(''),B36(st.kg),lessonList().filter(x=>st.n[x]).map(lh).join('')].join('-');return p+'-'+ck(p)}
+function rdCode(c){const p=String(c).trim().toUpperCase().split('-');if(p.length!==6||p[0]!=='FK1'||!/^\d{5}$/.test(p[1])||ck(p.slice(0,5).join('-'))!==p[5])return null;
+ const lv=p[2].split('').map(Number);if(lv.length!==K.length||lv.some(x=>!(x>=1&&x<=5)))return null;const kg=parseInt(p[3],36);if(!(kg>=0))return null;
+ const hh=new Set(p[4].match(/.{2}/g)||[]),n={};lessonList().forEach(x=>{if(hh.has(lh(x)))n[x]=1});return {id:p[1],l:Object.fromEntries(K.map((a,i)=>[a,lv[i]])),kg,n}}
+/* ---------- Send framgang direkte til Google Forms (i staden for kopier/lim inn) ----------
+   Slik set du dette opp:
+   1) Lag eit Google-skjema med tre spørsmål av typen «Kort svar»: Elev-ID, Namn og Framgangskode.
+   2) Trykk dei tre prikkane øvst i skjemaet → «Hent førehandsutfylt lenke» → skriv t.d. TEST i alle felt → «Hent lenke».
+   3) Den lenka inneheld noko slikt som ...viewform?entry.111111=TEST&entry.222222=TEST&entry.333333=TEST
+      Talla etter «entry.» er det du limer inn i ENTRY_ID, ENTRY_NAME og ENTRY_CODE under (i same rekkjefølgje som spørsmåla dine).
+   4) Lim inn den vanlege delelenka til skjemaet (den som endar på /viewform) i FORM_URL.
+*/
+const FORM_URL='https://docs.google.com/forms/d/e/1FAIpQLSfI4ZIfsoSsedTEe1w3tWZ_GJ6adbBV1FGO78Z7YCkIkQVJsg/viewform';
+const ENTRY_ID='253107520',ENTRY_CODE='1379514168',ENTRY_NAME='323060750',COOLDOWN_MS=30*60*1000;
+const cdLeft=()=>Math.max(0,COOLDOWN_MS-(Date.now()-(+(localStorage.getItem('ftSent')||0))));
+function sendToTeacher(cd){
+ const btn=document.getElementById('cp'),msg=document.getElementById('sndmsg'),left=cdLeft(),nmEl=document.getElementById('nm'),nm=(nmEl.value||'').trim();
+ if(!nm){msg.textContent='Skriv inn namnet ditt før du sender.';nmEl.focus();return}
+ if(left>0){msg.textContent=`Du har alt sendt. Du kan sende på nytt om ${Math.ceil(left/60000)} min.`;return}
+ if(!/^https?:\/\//.test(FORM_URL)){msg.textContent='Skjemaet er ikkje sett opp enno – spør læraren.';return}
+ try{
+  const action=FORM_URL.replace(/\/viewform.*$/,'/formResponse'),ifr=document.createElement('iframe');
+  ifr.name='ftFrame'+Date.now();ifr.style.display='none';document.body.appendChild(ifr);
+  const f=document.createElement('form');f.action=action;f.method='POST';f.target=ifr.name;f.style.display='none';
+  const add=(n,v)=>{const i=document.createElement('input');i.name=n;i.value=v;f.appendChild(i)};
+  add('entry.'+ENTRY_ID,st.id);add('entry.'+ENTRY_NAME,nm);add('entry.'+ENTRY_CODE,cd);
+  document.body.appendChild(f);f.submit();
+  setTimeout(()=>{f.remove();ifr.remove()},4000);
+  st.name=nm;save();
+  localStorage.setItem('ftSent',String(Date.now()));
+  btn.disabled=true;btn.firstChild.textContent='Sendt ✓';
+  msg.textContent='Sendt til læraren! Du kan sende på nytt om 30 min.';
+ }catch(e){msg.textContent='Klarte ikkje å sende. Prøv igjen, eller sjekk nettforbindelsen.'}
+}
+function box(msg){
+ document.body.dataset.l=1;const cd=mkCode(),ls=lessonList(),dn=ls.filter(x=>st.n[x]).length;
+ app.innerHTML=`<div class="fb" style="margin-top:6px"><h3 style="margin-top:.2em">Fremgangen din</h3>
+<table><tr><th>Område</th><th>Nivå</th></tr>${K.map(a=>`<tr><td>${A[a]}</td><td>${dots(st.l[a])} ${D[st.l[a]-1]} m</td></tr>`).join('')}</table>
+<p><span class="kg">🐟 ${st.kg} kg fisk</span><br>Naustet: ${dn} av ${ls.length} leksjonar ferdige.</p>
+<h3>Fremgangskoden din</h3><p>Skriv namnet ditt og trykk «Send til lærar», så får læraren framgangen din automatisk. Du kan sende på nytt kvart 30. minutt.</p>
+<input id="nm" autocomplete="name" placeholder="Fornamnet ditt" aria-label="Namnet ditt" required value="${(st.name||'').replace(/"/g,'&quot;')}">
+<button class="b go" id="cp"${cdLeft()>0?' disabled':''}><span>${cdLeft()>0?'Sendt ✓':'Send til lærar'}</span></button>
+<p id="sndmsg" style="font-size:.85rem;opacity:.85;margin:6px 0 0">${cdLeft()>0?`Du kan sende på nytt om ${Math.ceil(cdLeft()/60000)} min.`:''}</p>
+<details style="margin-top:10px"><summary>Fungerte ikkje sendinga? Vis koden</summary><textarea id="cd" rows="2" readonly>E-${st.id} ${cd}</textarea></details>
+<h3>Lærarfelt</h3><input id="cm" autocomplete="off" autocapitalize="none" spellcheck="false" aria-label="Lærarfelt"><button class="b" id="ut"><span>Utfør</span></button><div id="msg">${msg||''}</div></div>
+<button class="b mix" id="bk"><span>Tilbake til hamna</span></button>`;
+ document.getElementById('bk').onclick=home;
+ document.getElementById('cp').onclick=()=>sendToTeacher(cd);
+ const go=()=>lf(document.getElementById('cm').value);document.getElementById('ut').onclick=go;document.getElementById('cm').onkeydown=e=>{if(e.key==='Enter')go()};
+}
+function lf(v){
+ const t=v.trim().split(/\s+/),m=document.getElementById('msg');
+ if(!t[0]||hx(t[0].toLowerCase())!==CH){m.textContent='Ukjend kommando.';return}
+ if((t[1]||'').toLowerCase()==='oversikt')return ovw();
+ if(t.length<3){m.textContent='Manglar kode.';return}
+ const id=(t[1]||'').toUpperCase().replace(/^E-?/,''),c=rdCode(t.slice(2).join(''));
+ if(!c){m.textContent='Ukjend kode.';return}
+ if(c.id!==id){m.textContent='Koden høyrer ikkje til denne IDen.';return}
+ st.id=c.id;st.l=c.l;st.kg=c.kg;st.n=c.n;st.s={};st.w={};st.seen={};save();box('Fremgangen er henta tilbake ✓');
+}
+function ovw(){
+ const m=document.getElementById('msg');m.innerHTML='<h3>Klasseoversikt</h3><textarea id="pl" rows="6" placeholder="Lim inn kodane, ein per linje"></textarea><button class="b go" id="sv"><span>Vis oversikt</span></button><div id="tv" style="overflow-x:auto"></div>';
+ document.getElementById('sv').onclick=()=>{const cs=document.getElementById('pl').value.match(/FK1(?:-[0-9A-Za-z]*){5}/gi)||[],tot=lessonList().length;
+  document.getElementById('tv').innerHTML=cs.length?'<table><tr><th>ID</th>'+K.map(a=>`<th>${A[a]}</th>`).join('')+'<th>Fisk</th><th>Naustet</th></tr>'+cs.map(x=>{const c=rdCode(x);return c?`<tr><td>E-${c.id}</td>${K.map(a=>`<td>${c.l[a]}</td>`).join('')}<td>${c.kg}</td><td>${Object.keys(c.n).length}/${tot}</td></tr>`:`<tr><td colspan="8">Ugyldig kode</td></tr>`}).join('')+'</table>':'<p>Fann ingen koder.</p>'}
+}
+home();
+</script>
+</body>
+</html>
